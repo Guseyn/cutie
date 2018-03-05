@@ -29,7 +29,7 @@ class AsyncObject {
 		});
 	}
 
-	// need to be override
+	// need to be overridden
 	definedAsyncCall() {
 		return () => {};
 	}
