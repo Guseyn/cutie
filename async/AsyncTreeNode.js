@@ -1,67 +1,47 @@
 'use strict'
 
-const AsyncObject = require('./AsyncObject');
+const TreeNode = require('./TreeNode');
 
-class AsyncTreeNode {
+class AsyncTreeNode extends TreeNode {
 
-	/** 
-		field: AsyncObject or just field
-		parent: AsyncTreeNode
-		position: int
-	**/
-	constructor(field, parent, position) {
-		this.field = field;
-		this.parent = parent;
-    this.position = position;
-		this.argResults = [];
-	}
-
-	isAsync() {
-		return this.field instanceof AsyncObject;
-	}
-  
-  asyncArgsNum() {
-  	if (this.isAsync()) {
-  		return this.field.asyncArgsNum();
-  	}
-  	return 0;
+  /** 
+    field: AsyncObject
+    parent: AsyncTreeNode
+    position: int
+  **/
+  constructor(field, parent, position) {
+    super(field, parent, position);
+    this.argResults = [];
   }
 
-	insertArgumentResult(position, result) {
+  call() {
+    let args = this.argResults;
+    this.field.definedAsyncCall()(...args, (err, result) => {
+      if (err != null) {
+        throw err;
+      }
+      this.parent.insertArgumentResult(this.position, result);
+      this.callParent();
+    });
+  }
+
+  asyncArgsNum() {
+    return this.field.asyncArgsNum();
+  }
+
+  insertArgumentResult(position, result) {
     this.argResults[position] = result;
   }
 
-	call() {
-		if (this.isAsync()) {
-      let args = this.argResults;
-      this.field.definedAsyncCall()(...args, (err, result) => {
-        if (err != null) {
-          throw err;
-        }
-        this.parent.insertArgumentResult(this.position, result);
-        this.callParent(parent);
-      });
-    } else {
-      this.parent.insertArgumentResult(this.position, field);
-      this.callParent(parent);
-    }
-	}
-
-	readyToBeInvoked() {
-		if (this.isAsync()) {
-			return this.field.readyToBeInvoked(
-				this.argResults.filter(arg => {
-					return arg;
-				}).length
-			);
-		}
-		return false;
+  readyToBeInvoked() {
+    let readyResultsNum = this.argResults.filter(arg => {
+      return arg;
+    }).length
+    return this.field.readyToBeInvoked(readyResultsNum);
   }
 
-  callParent(parent) {
-  	if (this.parent.readyToBeInvoked()) {
-  		this.parent.call();
-  	}
+  isAsync() {
+    return true;
   }
 
 }
