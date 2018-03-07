@@ -1,6 +1,6 @@
 class NotDefinedAsyncTreeNode {
 
-	constructor() {}
+  constructor() {}
 
 }
 
