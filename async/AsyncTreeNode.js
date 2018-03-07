@@ -1,16 +1,48 @@
 'use strict'
 
-class AsyncTreeNode {
+const TreeNode = require('./TreeNode');
 
-	constructor(field, parent, position) {
-		this.field = field;
-		this.parent = parent;
-		this.position = position;
-	}
+class AsyncTreeNode extends TreeNode {
 
-	asyncArgsNum() {
-		return this.field.asyncArgsNum();
-	}
+  /** 
+    field: AsyncObject
+    parent: AsyncTreeNode
+    position: int
+  **/
+  constructor(field, parent, position) {
+    super(field, parent, position);
+    this.argResults = [];
+  }
+
+  call() {
+    let args = this.argResults;
+    this.field.definedAsyncCall()(...args, (err, result) => {
+      if (err != null) {
+        throw err;
+      }
+      this.parent.insertArgumentResult(this.position, result);
+      this.callParent();
+    });
+  }
+
+  asyncArgsNum() {
+    return this.field.asyncArgsNum();
+  }
+
+  insertArgumentResult(position, result) {
+    this.argResults[position] = result;
+  }
+
+  readyToBeInvoked() {
+    let readyResultsNum = this.argResults.filter(arg => {
+      return arg;
+    }).length
+    return this.field.readyToBeInvoked(readyResultsNum);
+  }
+
+  isAsync() {
+    return true;
+  }
 
 }
 
