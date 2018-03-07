@@ -16,13 +16,11 @@ class AsyncObject {
   }
 
   isAsyncArg(arg) {
-  	return arg instanceof AsyncObject;
+    return arg instanceof AsyncObject;
   }
 
-  asyncArgsNum() {
-    return this.args.filter(arg => {
-      return this.isAsyncArg(arg);
-    }).length;
+  hasNoArgs() {
+    return this.args.length === 0;
   }
 
   readyToBeInvoked(readyResultsNum) {
@@ -34,7 +32,7 @@ class AsyncObject {
     let nodes = [];
     this.buildAsyncTreeNode(new NotDefinedAsyncTreeNode(), nodes, 0);
     let leaves = nodes.filter(node => {
-      return node.isAsync() && node.asyncArgsNum() == 0;
+      return node.isLeave();
     });
     leaves.forEach(node => {
       node.call();
@@ -45,11 +43,11 @@ class AsyncObject {
     let asyncTreeNode = new AsyncTreeNode(this, parent, index);
     nodes.push(asyncTreeNode);
     this.args.forEach((arg, index) => {
-    	if (this.isAsyncArg(arg)) {
-    		arg.buildAsyncTreeNode(asyncTreeNode, nodes, index);
-    	} else {
-    		this.buildTreeNode(arg, asyncTreeNode, nodes, index);
-    	}
+      if (this.isAsyncArg(arg)) {
+        arg.buildAsyncTreeNode(asyncTreeNode, nodes, index);
+      } else {
+        this.buildTreeNode(arg, asyncTreeNode, nodes, index);
+      }
     });
   }
 

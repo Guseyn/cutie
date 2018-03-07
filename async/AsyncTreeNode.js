@@ -6,7 +6,7 @@ class AsyncTreeNode extends TreeNode {
 
   /** 
     field: AsyncObject
-    parent: AsyncTreeNode
+    parent: AsyncTreeNode or NotDefinedAsyncTree
     position: int
   **/
   constructor(field, parent, position) {
@@ -20,13 +20,18 @@ class AsyncTreeNode extends TreeNode {
       if (err != null) {
         throw err;
       }
-      this.parent.insertArgumentResult(this.position, result);
-      this.callParent();
+      if (this.hasParent()) {
+        super.call(result);
+      }
     });
   }
 
-  asyncArgsNum() {
-    return this.field.asyncArgsNum();
+  isLeave() {
+    return this.field.hasNoArgs();
+  }
+
+  hasParent() {
+    return this.parent instanceof AsyncTreeNode;
   }
 
   insertArgumentResult(position, result) {
@@ -36,12 +41,8 @@ class AsyncTreeNode extends TreeNode {
   readyToBeInvoked() {
     let readyResultsNum = this.argResults.filter(arg => {
       return arg;
-    }).length
+    }).length;
     return this.field.readyToBeInvoked(readyResultsNum);
-  }
-
-  isAsync() {
-    return true;
   }
 
 }
