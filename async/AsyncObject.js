@@ -10,7 +10,7 @@ class AsyncObject {
     this.args = args;
   }
 
-  // need to be overridden
+  // it's needed to be overridden
   definedAsyncCall() {
     return () => {};
   }
