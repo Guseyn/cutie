@@ -10,27 +10,33 @@ class AsyncObject {
     this.args = args;
   }
 
-  // it's needed to be overridden
+  // it needs to be overridden
   definedAsyncCall() {
     return () => {};
   }
 
-  isAsyncArg(arg) {
-    return arg instanceof AsyncObject;
+  // it can be overridden
+  onError(error) {
+    throw error;
   }
 
-  hasNoArgs() {
-    return this.args.length === 0;
-  }
-
-  readyToBeInvoked(readyResultsNum) {
-    return this.args.length === readyResultsNum;
+  /* 
+    it can be overridden,
+      must return the processed result 
+  */
+  onResult(result) {
+    // no async calls here, just process the result
+    return result;
   }
 
   // api alias (for async tree root only)
   call() {
     let nodes = [];
     this.buildAsyncTreeNode(new NotDefinedAsyncTreeNode(), nodes, 0);
+    /*
+      leaf can be either simple argument or
+        just AsyncObject without any arguments 
+    */
     let leaves = nodes.filter(node => {
       return node.isLeave();
     });
@@ -43,7 +49,7 @@ class AsyncObject {
     let asyncTreeNode = new AsyncTreeNode(this, parent, index);
     nodes.push(asyncTreeNode);
     this.args.forEach((arg, index) => {
-      if (this.isAsyncArg(arg)) {
+      if (arg instanceof AsyncObject) {
         arg.buildAsyncTreeNode(asyncTreeNode, nodes, index);
       } else {
         this.buildTreeNode(arg, asyncTreeNode, nodes, index);
@@ -54,6 +60,14 @@ class AsyncObject {
   buildTreeNode(arg, parent, nodes, index) {
     let treeNode = new TreeNode(arg, parent, index);
     nodes.push(treeNode);
+  }
+
+  hasNoArgs() {
+    return this.args.length === 0;
+  }
+
+  readyToBeInvoked(readyResultsNum) {
+    return this.args.length === readyResultsNum;
   }
 
 }

@@ -16,14 +16,20 @@ class AsyncTreeNode extends TreeNode {
 
   call() {
     let args = this.argResults;
-    this.field.definedAsyncCall()(...args, (err, result) => {
-      if (err != null) {
-        throw err;
-      }
-      if (this.hasParent()) {
-        super.call(result);
+    this.field.definedAsyncCall()(...args, (error, result) => {
+      if (error != null) {
+        this.field.onError(error);
+      } else if (this.hasParent()) {
+        super.call(this.field.onResult(result));
       }
     });
+  }
+  
+  readyToBeInvoked() {
+    let readyResultsNum = this.argResults.filter(arg => {
+      return arg;
+    }).length;
+    return this.field.readyToBeInvoked(readyResultsNum);
   }
 
   isLeave() {
@@ -36,13 +42,6 @@ class AsyncTreeNode extends TreeNode {
 
   insertArgumentResult(position, result) {
     this.argResults[position] = result;
-  }
-
-  readyToBeInvoked() {
-    let readyResultsNum = this.argResults.filter(arg => {
-      return arg;
-    }).length;
-    return this.field.readyToBeInvoked(readyResultsNum);
   }
 
 }
