@@ -17,7 +17,7 @@ class AsyncObject {
   /****** To be overriden ******/
 
   definedAsyncCall() {
-    return () => {};
+    return null;
   }
 
   onError(error) {
@@ -37,7 +37,8 @@ class AsyncObject {
 
   iterateArgs(func) {
     this.args.forEach((arg, index) => {
-      func(arg, index, arg instanceof AsyncObject);
+      let isArgAsync = arg instanceof AsyncObject
+      func(arg, index, isArgAsync);
     });
   }
 
