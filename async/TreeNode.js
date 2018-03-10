@@ -20,7 +20,7 @@ class TreeNode {
     }
   }
 
-  isLeave() {
+  isLeaf() {
     return true;
   }
 

@@ -21,7 +21,7 @@ class AsyncTree {
 
 	call() {
 		let leaves = this.nodes.filter(node => {
-      return node.isLeave();
+      return node.isLeaf();
     });
     leaves.forEach(leaf => {
       leaf.call();
