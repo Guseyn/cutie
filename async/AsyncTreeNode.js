@@ -32,7 +32,7 @@ class AsyncTreeNode extends TreeNode {
     return this.field.readyToBeInvoked(readyResultsNum);
   }
 
-  isLeave() {
+  isLeaf() {
     return this.field.hasNoArgs();
   }
 
