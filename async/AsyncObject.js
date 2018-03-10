@@ -7,6 +7,9 @@ const NotDefinedAsyncTreeNode = require('./NotDefinedAsyncTreeNode');
 
 class AsyncObject {
 
+  /**
+    args: any type (including AsyncObject)
+  **/
   constructor(...args) {
     this.args = args;
   }
