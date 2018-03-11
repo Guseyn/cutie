@@ -25,11 +25,11 @@ class TestMaxNum extends AsyncObject {
     	super(actual, expected);
   	}
 
-  	definedAsyncCall() {
+  	definedSyncCall() {
 			return (actual, expected, callback) => {
 				console.log(actual);
 				assert.strictEqual(actual, expected);
-				callback(null, actual);
+				return actual;
 			}
 		}
 

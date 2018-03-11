@@ -20,6 +20,10 @@ class AsyncObject {
     return null;
   }
 
+  definedSyncCall() {
+    return null;
+  }
+
   onError(error) {
     throw error;
   }
