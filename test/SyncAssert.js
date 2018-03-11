@@ -1,6 +1,7 @@
 'use strict'
 
-const AsyncObject = require('./../async/AsyncObject');
+const AsyncObject = require('./../src/AsyncObject');
+const assert = require('assert');
 
 class AsyncAssert extends AsyncObject {
 
@@ -10,7 +11,7 @@ class AsyncAssert extends AsyncObject {
 
 	definedSyncCall() {
 		return (actual, expected) => {
-			assrt(actual, expected);
+			assert.strictEqual(actual, expected);
 			return actual;
 		}
 	}
