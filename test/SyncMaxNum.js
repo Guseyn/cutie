@@ -4,15 +4,15 @@ const AsyncObject = require('./../src/AsyncObject');
 
 class SyncMaxNum extends AsyncObject {
 
-	constructor(a, b, c) {
+  constructor(a, b, c) {
     super(a, b, c);
   }
 
-	definedSyncCall() {
-		return (a, b, c) => {
-			return Math.max(a, b, c);
-		}
-	}
+  definedSyncCall() {
+    return (a, b, c) => {
+      return Math.max(a, b, c);
+    }
+  }
 
 }
 
