@@ -15,14 +15,34 @@ class AsyncTreeNode extends TreeNode {
   }
 
   call() {
+
     let args = this.argResults;
-    this.field.definedAsyncCall()(...args, (error, result) => {
-      if (error != null) {
-        this.field.onError(error);
-      } else if (this.hasParent()) {
+    let asyncCall = this.field.definedAsyncCall();
+    let syncCall = this.field.definedSyncCall();
+    
+    if (asyncCall != null && syncCall != null) {
+      throw new Error(`It's not allowed to define both asyncCall and syncCall`);
+    }
+    
+    if (asyncCall != null) {
+    
+      asyncCall(...args, (error, result) => {
+        if (error != null) {
+          this.field.onError(error);
+        } else if (this.hasParent()) {
+          super.call(this.field.onResult(result));
+        }
+      });
+    
+    } else if (syncCall != null) {
+    
+      let result = syncCall(...args);
+      if (this.hasParent()) {
         super.call(this.field.onResult(result));
       }
-    });
+    
+    }
+    
   }
   
   readyToBeInvoked() {
