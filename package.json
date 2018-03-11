@@ -1,7 +1,7 @@
 {
-  "name": "cutie",
+  "name": "@guseyn/cutie",
   "version": "1.0.0",
-  "description": "Cutie is a library with beautiful abstractions and primitives that make your asynchronous code in Node simple and declarative.",
+  "description": "Cutie is a library with beautiful abstractions and primitives that make your asynchronous code in Node simple and declarative (in progress...).",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -15,13 +15,13 @@
   },
   "keywords": [
     "cutie",
-    "oop",
-    "abstractions",
-    "declarative",
-    "programming",
-    "object",
     "async",
-    "tree"
+    "object",
+    "tree",
+    "abstractions",
+    "oop",
+    "desing",
+    "guseyn"
   ],
   "author": "guseyn",
   "license": "MIT",
