@@ -17,11 +17,11 @@ class AsyncObject {
   /****** To be overriden ******/
 
   definedAsyncCall() {
-    return null;
+    throw new Error(`asyncCall or syncCall must be defined`);
   }
 
   definedSyncCall() {
-    return null;
+    throw new Error(`asyncCall or syncCall must be defined`);
   }
 
   onError(error) {
@@ -34,10 +34,13 @@ class AsyncObject {
 
   /*****************************/
 
+  /************ API ************/
+
   call() {
-    let nodes = [];
     new AsyncTree(this).create().call();
   }
+
+  /*****************************/
 
   iterateArgs(func) {
     this.args.forEach((arg, index) => {
