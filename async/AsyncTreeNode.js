@@ -17,16 +17,15 @@ class AsyncTreeNode extends TreeNode {
   call() {
 
     let args = this.argResults;
-    let asyncCall = this.field.definedAsyncCall();
-    let syncCall = this.field.definedSyncCall();
-    
-    if (asyncCall != null && syncCall != null) {
-      throw new Error(`It's not allowed to define both asyncCall and syncCall`);
-    }
-    
-    if (asyncCall != null) {
-    
+
+    try {
+      
+      let asyncCall = this.field.definedAsyncCall();
       asyncCall(...args, (error, result) => {
+        
+        /**
+          It's not possible to get rid of null here :(
+        **/
         if (error != null) {
           this.field.onError(error);
         } else if (this.hasParent()) {
@@ -34,8 +33,9 @@ class AsyncTreeNode extends TreeNode {
         }
       });
     
-    } else if (syncCall != null) {
+    } catch(err) {
     
+      let syncCall = this.field.definedSyncCall();
       let result = syncCall(...args);
       if (this.hasParent()) {
         super.call(this.field.onResult(result));
