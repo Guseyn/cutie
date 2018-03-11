@@ -3,14 +3,27 @@
   "version": "1.0.0",
   "description": "Cutie is a library with beautiful abstractions and primitives that make your asynchronous code in Node simple and declarative.",
   "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/simple-test.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Guseyn/Cutie.git"
   },
-  "author": "@guseyn",
+  "keywords": [
+    "cutie",
+    "oop",
+    "abstractions",
+    "declarative",
+    "programming",
+    "object",
+    "async",
+    "tree"
+  ],
+  "author": "guseyn",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Guseyn/Cutie/issues"
