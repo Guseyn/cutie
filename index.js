@@ -1,1 +1,1 @@
-module.exports = require('./src/AsyncObject');
+module.exports.asyncObject = require('./src/AsyncObject');

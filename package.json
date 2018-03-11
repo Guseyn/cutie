@@ -1,7 +1,7 @@
 {
   "name": "@guseyn/cutie",
-  "version": "1.0.0",
-  "description": "Cutie is a library with beautiful abstractions and primitives that make your asynchronous code in Node simple and declarative (in progress...).",
+  "version": "1.0.2",
+  "description": "Cutie is a library with beautiful abstractions and primitives that make your asynchronous code in Node simple and declarative.",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Guseyn/Cutie.git"
+    "url": "git+https://github.com/Guseyn/cutie.git"
   },
   "keywords": [
     "cutie",
@@ -26,7 +26,7 @@
   "author": "guseyn",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Guseyn/Cutie/issues"
+    "url": "https://github.com/Guseyn/cutie/issues"
   },
-  "homepage": "https://github.com/Guseyn/Cutie#readme"
+  "homepage": "https://github.com/Guseyn/cutie#readme"
 }
