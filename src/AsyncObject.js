@@ -44,7 +44,7 @@ class AsyncObject {
 
   iterateArgs(func) {
     this.args.forEach((arg, index) => {
-      let isArgAsync = arg instanceof AsyncObject
+      let isArgAsync = arg instanceof AsyncObject;
       func(arg, index, isArgAsync);
     });
   }
