@@ -1,5 +1,5 @@
 # Cutie
-Cutie is lightweight library without any external dependencies, the main point of which is very simple: just to provide user with one abstraction: <b>AsyncObject</b> that make your asynchronous code in Node simple and declarative and that's it.
+Cutie is lightweight library without any external dependencies, the main point of which is very simple: just to provide user with one abstraction: <b>AsyncObject</b> that makes your asynchronous code in Node simple and declarative and that's it.
 
 # Motivation
 Let's say we want to write content to a file that has been read from another one. And all these operations are asynchronous, of course. So, instead of writing something like this:
