@@ -1,2 +1,116 @@
 # Cutie
 Cutie is a library with beautiful abstractions and primitives that make your asynchronous code in Node simple and declarative.
+
+# Motivation
+Cutie is lightweight library without any external dependencies, the main point of which is very simple: just to provide user with one abstraction: <b>AsyncObject</b> and that's it.
+
+Let's say we want to write content to a file that has been read from another one. And all these operations are asynchronous, of course. So, instead of writing something like this:
+```js
+fs.readFile('./../file1.txt', (err, result) => {
+  if (err != null) {
+    throw err;
+  }
+ 
+  fs.writeFile('/../file2.txt', result, (err) => {
+    if (err != null) {
+      throw err;
+    }
+  });
+});
+```
+we can design our code in the following style:
+```js
+new WrittenFile(
+  './../file2.txt',
+  new ReadFile('./../file1.txt')
+).call();
+```
+# How to use
+You can use Cutie as dependency via npm:
+<b>npm install @guseyn/cutie</b>
+```js
+const AsyncObject = require('@guseyn/cutie').AsyncObject;
+const fs = require('fs');
+
+class WrittenFile extends AsyncObject {
+
+  constructor(path, content) {
+    super(path, content);
+  }
+  
+  definedAsyncCall() {
+    return fs.writeFile;
+  }
+  
+}
+```
+```js
+const AsyncObject = require('@guseyn/cutie').AsyncObject;
+const fs = require('fs');
+
+class ReadFile extends AsyncObject {
+
+  constructor(path, content) {
+    super(path, content);
+  }
+  
+  definedAsyncCall() {
+    return fs.readFile;
+  }
+
+}
+```
+AsyncObject also provides methods OnResult and OnError, so that you can process the result from async call and handle an error in the specific way (it just throws by default).
+
+Let's say we want to read a json file and parse all information from there. Cutie provides two ways. First of them is just to create <b>ReadJsonFile</b> async object like this:
+```js
+const AsyncObject = require('@guseyn/cutie').AsyncObject;
+const fs = require('fs');
+
+class ReadJsonFile extends AsyncObject {
+  
+  constructor(path, content) {
+    super(path, content);
+  }
+  
+  definedAsyncCall() {
+    return fs.readFile;
+  }
+  
+  onResult(result) {
+    return JSON.parse(result);
+  }
+
+}
+
+// usage
+new ReadJsonFile('./../file.txt').call();
+```
+Or you can use <b>ReadFile</b> with <b>ParsedJson</b> that looks like this:
+```js
+const AsyncObject = require('@guseyn/cutie').AsyncObject;
+const fs = require('fs');
+const ReadFile = require('./ReadFile');
+
+class ParsedJson extends AsyncObject {
+
+  constructor(text) {
+    super(text);
+  }
+  
+  /*
+    you can't call here async operations with I/O
+  */
+  definedSyncCall() {
+    return (text) => {
+      return JSON.parse(text);
+    }
+  }
+
+}
+
+// usage
+new ParsedJson(
+  new ReadFile('./../file.txt')
+).call();
+```
