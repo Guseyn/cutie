@@ -1,9 +1,7 @@
 # Cutie
-Cutie is a library with beautiful abstractions and primitives that make your asynchronous code in Node simple and declarative.
+Cutie is lightweight library without any external dependencies, the main point of which is very simple: just to provide user with one abstraction: <b>AsyncObject</b> that make your asynchronous code in Node simple and declarative and that's it.
 
 # Motivation
-Cutie is lightweight library without any external dependencies, the main point of which is very simple: just to provide user with one abstraction: <b>AsyncObject</b> and that's it.
-
 Let's say we want to write content to a file that has been read from another one. And all these operations are asynchronous, of course. So, instead of writing something like this:
 ```js
 fs.readFile('./../file1.txt', (err, result) => {
