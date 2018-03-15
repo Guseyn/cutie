@@ -58,7 +58,7 @@ class ReadFile extends AsyncObject {
 
 }
 ```
-AsyncObject also provides methods OnResult and OnError, so that you can process the result from async call and handle an error in the specific way (it just throws by default).
+AsyncObject also provides methods OnResult and OnError, so that you can process the result from async call and handle an error in the specific way (error is being thrown by default).
 
 Let's say we want to read a json file and parse all information from there. Cutie provides two ways. First of them is just to create <b>ReadJsonFile</b> async object like this:
 ```js
