@@ -24,6 +24,10 @@ class AsyncObject {
     throw new Error(`asyncCall or syncCall must be defined`);
   }
 
+  callbackWithError() {
+    return true;
+  }
+
   onError(error) {
     throw error;
   }

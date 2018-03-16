@@ -22,17 +22,32 @@ class AsyncTreeNode extends TreeNode {
       
       let asyncCall = this.field.definedAsyncCall();
       
-      asyncCall(...args, (error, result) => {
+      if (this.field.callbackWithError()) {
         
-        /**
-          It's not possible to get rid of null here :(
-        **/
-        if (error != null) {
-          this.field.onError(error);
-        } else if (this.hasParent()) {
-          super.call(this.field.onResult(result));
-        }
-      });
+        asyncCall(...args, (error, ...results) => {
+          /**
+            It's not possible to get rid of null here :(
+          **/
+
+          if (error != null) {
+            this.field.onError(error);
+          } else if (this.hasParent()) {
+            super.call(this.field.onResult(...results));
+          }
+
+        });
+
+      } else {
+
+        asyncCall(...args, (...results) => {
+          
+          if (this.hasParent()) {
+            super.call(this.field.onResult(...results));
+          }
+
+        });
+
+      }
     
     } catch(error) {
 
