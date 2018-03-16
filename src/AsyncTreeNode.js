@@ -25,10 +25,10 @@ class AsyncTreeNode extends TreeNode {
       if (this.field.callbackWithError()) {
         
         asyncCall(...args, (error, ...results) => {
+
           /**
             It's not possible to get rid of null here :(
           **/
-
           if (error != null) {
             this.field.onError(error);
           } else if (this.hasParent()) {
