@@ -84,6 +84,26 @@ class ReadJsonFile extends AsyncObject {
 // usage
 new ReadJsonFile('./../file.txt').call();
 ```
+<b>ReadJsonFile</b> also could be designed like this:
+```js
+const fs = require('fs');
+const ReadFile = require('./ReadFile');
+
+class ReadJsonFile extends ReadFile {
+  
+  constructor(path, content) {
+    super(path, content);
+  }
+  
+  onResult(result) {
+    return JSON.parse(result);
+  }
+
+}
+
+// usage
+new ReadJsonFile('./../file.txt').call();
+```
 Or you can use <b>ReadFile</b> with <b>ParsedJson</b> that looks like this:
 ```js
 const AsyncObject = require('@guseyn/cutie').AsyncObject;
