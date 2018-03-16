@@ -13,8 +13,12 @@ class AsyncMaxNum extends AsyncObject {
   **/
   definedAsyncCall() {
     return (a, b, c, callback) => {
-      callback(null, Math.max(a, b, c));
+      callback(Math.max(a, b, c));
     }
+  }
+
+  callbackWithError() {
+    return false;
   }
 
 }
