@@ -21,6 +21,7 @@ class AsyncTreeNode extends TreeNode {
     try {
       
       let asyncCall = this.field.definedAsyncCall();
+      
       asyncCall(...args, (error, result) => {
         
         /**
@@ -33,12 +34,21 @@ class AsyncTreeNode extends TreeNode {
         }
       });
     
-    } catch(err) {
-    
+    } catch(error) {
+
       let syncCall = this.field.definedSyncCall();
-      let result = syncCall(...args);
-      if (this.hasParent()) {
-        super.call(this.field.onResult(result));
+      
+      try {
+        
+        let result = syncCall(...args);
+        if (this.hasParent()) {
+          super.call(this.field.onResult(result));
+        }
+      
+      } catch (error) {
+
+        this.field.onError(error);
+      
       }
     
     }
