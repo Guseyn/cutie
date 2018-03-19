@@ -21,10 +21,11 @@ class AsyncTreeNode extends TreeNode {
     try {
       
       let asyncCall = this.field.definedAsyncCall();
-      
+      let staticObject;
+
       if (this.field.callbackWithError()) {
         
-        asyncCall(...args, (error, ...results) => {
+        staticObject = asyncCall(...args, (error, ...results) => {
 
           /**
             It's not possible to get rid of null here :(
@@ -39,7 +40,7 @@ class AsyncTreeNode extends TreeNode {
 
       } else {
 
-        asyncCall(...args, (...results) => {
+        staticObject = asyncCall(...args, (...results) => {
           
           if (this.hasParent()) {
             super.call(this.field.onResult(...results));
@@ -48,6 +49,8 @@ class AsyncTreeNode extends TreeNode {
         });
 
       }
+
+      this.field.attachAllEventsTo(staticObject);
     
     } catch(error) {
 
@@ -56,6 +59,9 @@ class AsyncTreeNode extends TreeNode {
       try {
         
         let result = syncCall(...args);
+
+        this.field.attachAllEventsTo(result);
+        
         if (this.hasParent()) {
           super.call(this.field.onResult(result));
         }

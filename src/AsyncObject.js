@@ -1,9 +1,7 @@
 'use strict'
 
 const AsyncTree = require('./AsyncTree');
-const TreeNode = require('./TreeNode');
-const AsyncTreeNode = require('./AsyncTreeNode');
-const NotDefinedAsyncTreeNode = require('./NotDefinedAsyncTreeNode');
+const AsyncEvent = require('./AsyncEvent');
 
 class AsyncObject {
 
@@ -12,6 +10,7 @@ class AsyncObject {
   **/
   constructor(...args) {
     this.args = args;
+    this.events = [];
   }
 
   /****** To be overriden ******/
@@ -44,12 +43,23 @@ class AsyncObject {
     new AsyncTree(this).create().call();
   }
 
+  withEvent(eventName, callback) {
+    this.events.push(new AsyncEvent(eventName, callback));
+    return this;
+  }
+
   /*****************************/
 
   iterateArgs(func) {
     this.args.forEach((arg, index) => {
       let isArgAsync = arg instanceof AsyncObject;
       func(arg, index, isArgAsync);
+    });
+  }
+
+  attachAllEventsTo(staticObject) {
+    this.events.forEach(event => {
+      event.attachTo(staticObject);
     });
   }
 
