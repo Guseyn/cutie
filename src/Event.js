@@ -16,9 +16,8 @@ class Event {
   */
   listen() {
     return (...args) => {
-      let body = this.definedBody(...args);
       try {
-        body(...args).call();
+        this.definedBody(...args).call();
       } catch(err) {
         this.throwError();
       }
