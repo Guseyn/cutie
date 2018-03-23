@@ -1,7 +1,5 @@
 'use strict'
 
-const AsyncObject = require('./AsyncObject');
-
 class Event {
 
   constructor() {}
@@ -10,7 +8,7 @@ class Event {
     To be overriden
   */
   definedBody(...args) {
-    return AsyncObject(...args);
+    this.throwError();
   }
 
   /*
@@ -18,12 +16,17 @@ class Event {
   */
   listen() {
     return (...args) => {
+      let body = this.definedBody(...args);
       try {
         this.definedBody(...args).call();
       } catch(err) {
-        throw new Error('you must define body of the event as AsyncObject with defined async/sync call');
+        this.throwError();
       }
     }
+  }
+
+  throwError() {
+    throw new Error('You must override method definedBody with arguments of the event/eventListener you call that return AsyncObject with defined sync/async call');
   }
 
 }
