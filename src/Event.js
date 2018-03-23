@@ -18,7 +18,7 @@ class Event {
     return (...args) => {
       let body = this.definedBody(...args);
       try {
-        this.definedBody(...args).call();
+        body(...args).call();
       } catch(err) {
         this.throwError();
       }
