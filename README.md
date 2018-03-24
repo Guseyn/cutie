@@ -48,8 +48,8 @@ const fs = require('fs');
 
 class ReadFile extends AsyncObject {
 
-  constructor(path, content) {
-    super(path, content);
+  constructor(path) {
+    super(path);
   }
   
   definedAsyncCall() {
@@ -67,8 +67,8 @@ const fs = require('fs');
 
 class ReadJsonFile extends AsyncObject {
   
-  constructor(path, content) {
-    super(path, content);
+  constructor(path) {
+    super(path);
   }
   
   definedAsyncCall() {
@@ -91,8 +91,8 @@ const ReadFile = require('./ReadFile');
 
 class ReadJsonFile extends ReadFile {
   
-  constructor(path, content) {
-    super(path, content);
+  constructor(path) {
+    super(path);
   }
   
   onResult(result) {
