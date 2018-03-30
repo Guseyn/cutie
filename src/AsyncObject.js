@@ -1,6 +1,7 @@
 'use strict'
 
 const AsyncTree = require('./AsyncTree');
+const Event = require('./Event');
 
 class AsyncObject {
 
@@ -45,8 +46,9 @@ class AsyncObject {
 
   iterateArgs(func) {
     this.args.forEach((arg, index) => {
-      let isArgAsync = arg instanceof AsyncObject;
-      func(arg, index, isArgAsync);
+      let isAsync = arg instanceof AsyncObject;
+      let isEvent = arg instanceof Event;
+      func(arg, index, isAsync, isEvent);
     });
   }
 

@@ -31,8 +31,12 @@ class AsyncTree {
   createAsyncTreeNode(field, parent, index) {
     let asyncTreeNode = new AsyncTreeNode(field, parent, index);
     this.nodes.push(asyncTreeNode);
-    field.iterateArgs((arg, index, isArgAsync) => {
-      if (isArgAsync) {
+    field.iterateArgs((arg, index, isAsync, isEvent) => {
+      if (isEvent) {
+        this.createTreeNode((...args) => {
+          arg.definedBody(...args);
+        }, asyncTreeNode, index);
+      } else if (isAsync) {
         this.createAsyncTreeNode(arg, asyncTreeNode, index);
       } else {
         this.createTreeNode(arg, asyncTreeNode, index);

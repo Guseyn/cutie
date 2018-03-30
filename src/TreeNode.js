@@ -16,17 +16,9 @@ class TreeNode {
   }
 
   call(result) {
-    if (this.field instanceof Event) {
-      this.parent.insertArgumentResult(
-        this.position, (...args) => {
-          this.field.definedBody(...args);
-        }
-      );
-    } else {
-      this.parent.insertArgumentResult(this.position, result || this.field);
-      if (this.parent.readyToBeInvoked()) {
-        this.parent.call();
-      }
+    this.parent.insertArgumentResult(this.position, result || this.field);
+    if (this.parent.readyToBeInvoked()) {
+      this.parent.call();
     }
   }
 
