@@ -16,16 +16,12 @@ class Event {
   */
   listen() {
     return (...args) => {
-      try {
-        this.definedBody(...args).call();
-      } catch(err) {
-        this.throwError();
-      }
+      this.definedBody(...args);
     }
   }
 
   throwError() {
-    throw new Error('You must override method definedBody with arguments of the event/eventListener you call that return AsyncObject with defined sync/async call');
+    throw new Error('Method definedBody must be overriden with arguments of the event/eventListener you call');
   }
 
 }
