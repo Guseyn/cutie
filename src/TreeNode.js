@@ -1,5 +1,7 @@
 'use strict'
 
+const Event = require('./Event');
+
 class TreeNode {
 
   /** 
