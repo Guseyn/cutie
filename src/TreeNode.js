@@ -3,7 +3,7 @@
 class TreeNode {
 
   /** 
-    field: just some value (argument)
+    field: just some value (argument), also can be Event
     parent: AsyncTreeNode
     position: int
   **/
@@ -14,9 +14,17 @@ class TreeNode {
   }
 
   call(result) {
-    this.parent.insertArgumentResult(this.position, result || this.field);
-    if (this.parent.readyToBeInvoked()) {
-      this.parent.call();
+    if (this.field instanceof Event) {
+      this.parent.insertArgumentResult(
+        this.position, (...args) => {
+          this.field.definedBody(...args);
+        }
+      );
+    } else {
+      this.parent.insertArgumentResult(this.position, result || this.field);
+      if (this.parent.readyToBeInvoked()) {
+        this.parent.call();
+      }
     }
   }
 
