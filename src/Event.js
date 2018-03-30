@@ -11,15 +11,6 @@ class Event {
     this.throwError();
   }
 
-  /*
-    API
-  */
-  listen() {
-    return (...args) => {
-      this.definedBody(...args);
-    }
-  }
-
   throwError() {
     throw new Error('Method definedBody must be overriden with arguments of the event/eventListener you call');
   }
