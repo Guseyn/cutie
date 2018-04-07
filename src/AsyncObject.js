@@ -52,12 +52,6 @@ class AsyncObject {
     });
   }
 
-  attachAllEventsTo(staticObject) {
-    this.events.forEach(event => {
-      event.attachTo(staticObject);
-    });
-  }
-
   hasNoArgs() {
     return this.args.length === 0;
   }
