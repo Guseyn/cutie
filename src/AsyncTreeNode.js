@@ -12,6 +12,7 @@ class AsyncTreeNode extends TreeNode {
   constructor(field, parent, position) {
     super(field, parent, position);
     this.argResults = [];
+    this.readyResultsNum = 0;
   }
 
   call() {
@@ -73,10 +74,7 @@ class AsyncTreeNode extends TreeNode {
   }
   
   readyToBeInvoked() {
-    let readyResultsNum = this.argResults.filter(arg => {
-      return arg;
-    }).length;
-    return this.field.readyToBeInvoked(readyResultsNum);
+    return this.field.readyToBeInvoked(this.readyResultsNum);
   }
 
   isLeaf() {
@@ -89,6 +87,7 @@ class AsyncTreeNode extends TreeNode {
 
   insertArgumentResult(position, result) {
     this.argResults[position] = result;
+    this.readyResultsNum += 1;
   }
 
 }
