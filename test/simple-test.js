@@ -23,4 +23,5 @@ let testAsyncObject = new SyncAssert (new SyncAssert(
   )
 
 ), 8);
+
 testAsyncObject.call();

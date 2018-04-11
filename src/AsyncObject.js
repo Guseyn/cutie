@@ -5,42 +5,42 @@ const Event = require('./Event');
 
 class AsyncObject {
 
-  /**
+  /*
     args: any type (including AsyncObject)
-  **/
+  */
   constructor(...args) {
     this.args = args;
   }
 
   /****** To be overriden ******/
 
-  definedAsyncCall() {
-    throw new Error(`asyncCall or syncCall must be defined`);
-  }
+    definedAsyncCall() {
+      throw new Error(`asyncCall or syncCall must be defined`);
+    }
 
-  definedSyncCall() {
-    throw new Error(`asyncCall or syncCall must be defined`);
-  }
+    definedSyncCall() {
+      throw new Error(`asyncCall or syncCall must be defined`);
+    }
 
-  callbackWithError() {
-    return true;
-  }
+    callbackWithError() {
+      return true;
+    }
 
-  onError(error) {
-    throw error;
-  }
+    onError(error) {
+      throw error;
+    }
 
-  onResult(result) {
-    return result;
-  }
+    onResult(result) {
+      return result;
+    }
 
   /*****************************/
 
   /************ API ************/
 
-  call() {
-    new AsyncTree(this).create().call();
-  }
+    call() {
+      new AsyncTree(this).create().call();
+    }
 
   /*****************************/
 
