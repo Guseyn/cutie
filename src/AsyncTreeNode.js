@@ -33,7 +33,7 @@ class AsyncTreeNode extends TreeNode {
           if (error != null) {
             this.field.onError(error);
           } else if (this.hasParent()) {
-            super.call(this.field.onResult(...results));
+            super.callParent(this.field.onResult(...results));
           }
 
         });
@@ -43,7 +43,7 @@ class AsyncTreeNode extends TreeNode {
         asyncCall(...args, (...results) => {
           
           if (this.hasParent()) {
-            super.call(this.field.onResult(...results));
+            super.callParent(this.field.onResult(...results));
           }
 
         });
@@ -59,7 +59,7 @@ class AsyncTreeNode extends TreeNode {
         let result = syncCall(...args);
         
         if (this.hasParent()) {
-          super.call(this.field.onResult(result));
+          super.callParent(this.field.onResult(result));
         }
       
       } catch (error) {
@@ -72,12 +72,12 @@ class AsyncTreeNode extends TreeNode {
     
   }
   
-  readyToBeInvoked() {
-    return this.field.readyToBeInvoked(this.readyResultsNum);
-  }
-
   isLeaf() {
     return this.field.hasNoArgs();
+  }
+
+  readyToBeInvoked() {
+    return this.field.readyToBeInvoked(this.readyResultsNum);
   }
 
   hasParent() {

@@ -1,6 +1,6 @@
 'use strict'
 
-const Event = require('./Event');
+/* abstract class */
 
 class TreeNode {
 
@@ -15,15 +15,27 @@ class TreeNode {
     this.position = position;
   }
 
-  call(result) {
+  /****** To be overriden ******/
+    
+    call(result) {
+      throw new Error('call must be overridden');
+    }
+
+    isLeaf() {
+      throw new Error('isLeaf must be overridden');
+    }
+
+  /*****************************/
+
+  /*
+    The methods below are not allowed to be overridden
+  */
+
+  callParent(result) {
     this.parent.insertArgumentResult(this.position, result || this.field);
     if (this.parent.readyToBeInvoked()) {
       this.parent.call();
     }
-  }
-
-  isLeaf() {
-    return true;
   }
 
 }
