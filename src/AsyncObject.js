@@ -3,6 +3,8 @@
 const AsyncTree = require('./AsyncTree');
 const Event = require('./Event');
 
+/* abstract class */
+
 class AsyncObject {
 
   /*
@@ -43,6 +45,10 @@ class AsyncObject {
     }
 
   /*****************************/
+
+  /*
+    The methods below are not allowed to be overridden
+  */
 
   iterateArgs(func) {
     this.args.forEach((arg, index) => {

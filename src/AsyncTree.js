@@ -1,6 +1,6 @@
 'use strict'
 
-const TreeNode = require('./TreeNode');
+const BasicTreeNode = require('./BasicTreeNode');
 const AsyncTreeNode = require('./AsyncTreeNode');
 const NotDefinedAsyncTreeNode = require('./NotDefinedAsyncTreeNode');
 
@@ -20,12 +20,15 @@ class AsyncTree {
   }
 
   call() {
+
     let leaves = this.nodes.filter(node => {
       return node.isLeaf();
     });
+  
     leaves.forEach(leaf => {
       leaf.call();
     });
+  
   }
 
   createAsyncTreeNode(field, parent, index) {
@@ -35,22 +38,22 @@ class AsyncTree {
 
     field.iterateArgs((arg, index, isAsync, isEvent) => {
 
-      if (isEvent) {
-        this.createTreeNode((...args) => {
+      if (isAsync) {
+        this.createAsyncTreeNode(arg, asyncTreeNode, index);
+      } else if (isEvent) {
+        this.createBasicTreeNode((...args) => {
           arg.definedBody(...args);
         }, asyncTreeNode, index);
-      } else if (isAsync) {
-        this.createAsyncTreeNode(arg, asyncTreeNode, index);
       } else {
-        this.createTreeNode(arg, asyncTreeNode, index);
+        this.createBasicTreeNode(arg, asyncTreeNode, index);
       }
 
     });
 
   }
 
-  createTreeNode(field, parent, index) {
-    let treeNode = new TreeNode(field, parent, index);
+  createBasicTreeNode(field, parent, index) {
+    let treeNode = new BasicTreeNode(field, parent, index);
     this.nodes.push(treeNode);
   }
 
