@@ -4,11 +4,11 @@ const Event = require('./Event');
 
 class TreeNode {
 
-  /** 
+  /*
     field: just some value (argument), also can be Event
     parent: AsyncTreeNode
     position: int
-  **/
+  */
   constructor(field, parent, position) {
     this.field = field;
     this.parent = parent;

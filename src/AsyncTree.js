@@ -6,9 +6,9 @@ const NotDefinedAsyncTreeNode = require('./NotDefinedAsyncTreeNode');
 
 class AsyncTree {
 
-  /**
+  /*
     rootField: AsyncObject
-  **/
+  */
   constructor(rootField) {
     this.rootField = rootField;
     this.nodes = [];
@@ -29,9 +29,12 @@ class AsyncTree {
   }
 
   createAsyncTreeNode(field, parent, index) {
+
     let asyncTreeNode = new AsyncTreeNode(field, parent, index);
     this.nodes.push(asyncTreeNode);
+
     field.iterateArgs((arg, index, isAsync, isEvent) => {
+
       if (isEvent) {
         this.createTreeNode((...args) => {
           arg.definedBody(...args);
@@ -41,7 +44,9 @@ class AsyncTree {
       } else {
         this.createTreeNode(arg, asyncTreeNode, index);
       }
+
     });
+
   }
 
   createTreeNode(field, parent, index) {

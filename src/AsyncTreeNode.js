@@ -4,11 +4,11 @@ const TreeNode = require('./TreeNode');
 
 class AsyncTreeNode extends TreeNode {
 
-  /** 
+  /*
     field: AsyncObject
     parent: AsyncTreeNode or NotDefinedAsyncTree
     position: int
-  **/
+  */
   constructor(field, parent, position) {
     super(field, parent, position);
     this.argResults = [];
@@ -22,15 +22,14 @@ class AsyncTreeNode extends TreeNode {
     try {
       
       let asyncCall = this.field.definedAsyncCall();
-      let staticObject;
 
       if (this.field.callbackWithError()) {
         
         asyncCall(...args, (error, ...results) => {
 
-          /**
+          /*
             It's not possible to get rid of null here :(
-          **/
+          */
           if (error != null) {
             this.field.onError(error);
           } else if (this.hasParent()) {
