@@ -4,7 +4,7 @@ Cutie is a lightweight library without any external dependencies, the main point
 # Motivation
 Let's say we want to write content to a file that has been read from another one. And all these operations are asynchronous, of course. So, instead of writing something like this:
 ```js
-fs.readFile('./../file1.txt', (err, result) => {
+fs.readFile('./../file1.txt', 'utf8', (err, result) => {
   if (err != null) {
     throw err;
   }
@@ -20,7 +20,7 @@ we can design our code in the following style:
 ```js
 new WrittenFile(
   './../file2.txt',
-  new ReadFile('./../file1.txt')
+  new ReadFile('./../file1.txt', 'utf8')
 ).call();
 ```
 # How to use
@@ -48,8 +48,8 @@ const fs = require('fs');
 
 class ReadFile extends AsyncObject {
 
-  constructor(path) {
-    super(path);
+  constructor(path, encoding) {
+    super(path, encoding);
   }
   
   definedAsyncCall() {
@@ -67,8 +67,8 @@ const fs = require('fs');
 
 class ReadJsonFile extends AsyncObject {
   
-  constructor(path) {
-    super(path);
+  constructor(path, encoding) {
+    super(path, encoding);
   }
   
   definedAsyncCall() {
@@ -82,7 +82,7 @@ class ReadJsonFile extends AsyncObject {
 }
 
 // usage
-new ReadJsonFile('./../file.txt').call();
+new ReadJsonFile('./../file.txt', 'utf8').call();
 ```
 <b>ReadJsonFile</b> also could be designed like this:
 ```js
@@ -91,8 +91,8 @@ const ReadFile = require('./ReadFile');
 
 class ReadJsonFile extends ReadFile {
   
-  constructor(path) {
-    super(path);
+  constructor(path, encoding) {
+    super(path, encoding);
   }
   
   onResult(result) {
@@ -102,7 +102,7 @@ class ReadJsonFile extends ReadFile {
 }
 
 // usage
-new ReadJsonFile('./../file.txt').call();
+new ReadJsonFile('./../file.txt', 'utf8').call();
 ```
 Or you can use <b>ReadFile</b> with <b>ParsedJson</b> that looks like this:
 ```js
@@ -129,7 +129,7 @@ class ParsedJson extends AsyncObject {
 
 // usage
 new ParsedJson(
-  new ReadFile('./../file.txt')
+  new ReadFile('./../file.txt', 'utf8')
 ).call();
 ```
 [Learn more](http://guseyn.com/post-reconsidering-async-object-with-cutie#intro).
