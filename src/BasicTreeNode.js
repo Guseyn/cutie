@@ -8,13 +8,15 @@ class BasicTreeNode extends TreeNode {
     super(field, parent, position);
   }
 
-  call(result) {
-    super.callParent(result);
-  }
+  // PUBLIC
 
-  isLeaf() {
-    return true;
-  }
+    call(result) {
+      super.callParent(result);
+    }
+
+    isLeaf() {
+      return true;
+    }
 
 }
 

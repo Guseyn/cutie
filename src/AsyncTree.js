@@ -14,48 +14,48 @@ class AsyncTree {
     this.nodes = [];
   }
 
-  create() {
-    this.createAsyncTreeNode(this.rootField, new NotDefinedAsyncTreeNode(), 0);
-    return this;
-  }
+  // PUBLIC
 
-  call() {
+    create() {
+      this.createAsyncTreeNode(this.rootField, new NotDefinedAsyncTreeNode(), 0);
+      return this;
+    }
 
-    let leaves = this.nodes.filter(node => {
-      return node.isLeaf();
-    });
+    call() {
+      let leaves = this.nodes.filter(node => {
+        return node.isLeaf();
+      });
+      leaves.forEach(leaf => {
+        leaf.call();
+      });
+    }
+
+  // PRIVATE
   
-    leaves.forEach(leaf => {
-      leaf.call();
-    });
+    createAsyncTreeNode(field, parent, index) {
+      let asyncTreeNode = new AsyncTreeNode(field, parent, index);
+      this.nodes.push(asyncTreeNode);
+      this.createChildNodes(field, asyncTreeNode);
+    }
+
+    createBasicTreeNode(field, parent, index) {
+      let treeNode = new BasicTreeNode(field, parent, index);
+      this.nodes.push(treeNode);
+    }
   
-  }
-
-  createAsyncTreeNode(field, parent, index) {
-
-    let asyncTreeNode = new AsyncTreeNode(field, parent, index);
-    this.nodes.push(asyncTreeNode);
-
-    field.iterateArgs((arg, index, isAsync, isEvent) => {
-
-      if (isAsync) {
-        this.createAsyncTreeNode(arg, asyncTreeNode, index);
-      } else if (isEvent) {
-        this.createBasicTreeNode((...args) => {
-          arg.definedBody(...args);
-        }, asyncTreeNode, index);
-      } else {
-        this.createBasicTreeNode(arg, asyncTreeNode, index);
-      }
-
-    });
-
-  }
-
-  createBasicTreeNode(field, parent, index) {
-    let treeNode = new BasicTreeNode(field, parent, index);
-    this.nodes.push(treeNode);
-  }
+    createChildNodes(field, parent) {
+      field.iterateArgs((argAsField, index, isAsync, isEvent) => {
+        if (isAsync) {
+          this.createAsyncTreeNode(argAsField, parent, index);
+        } else if (isEvent) {
+          this.createBasicTreeNode((...eventArgs) => {
+            argAsField.definedBody(...eventArgs);
+          }, parent, index);
+        } else {
+          this.createBasicTreeNode(argAsField, parent, index);
+       }
+      });
+    }
 
 }
 

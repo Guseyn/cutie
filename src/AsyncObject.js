@@ -14,7 +14,7 @@ class AsyncObject {
     this.args = args;
   }
 
-  /****** To be overriden ******/
+  // TO BE OVERRIDDEN
 
     definedAsyncCall() {
       throw new Error(`asyncCall or syncCall must be defined`);
@@ -36,35 +36,29 @@ class AsyncObject {
       return result;
     }
 
-  /*****************************/
-
-  /************ API ************/
+  // PUBLIC
 
     call() {
       new AsyncTree(this).create().call();
     }
 
-  /*****************************/
+    // NOT ALLOWED TO BE OVERRIDDEN
 
-  /*
-    The methods below are not allowed to be overridden
-  */
+      iterateArgs(func) {
+        this.args.forEach((arg, index) => {
+          let isAsync = arg instanceof AsyncObject;
+          let isEvent = arg instanceof Event;
+          func(arg, index, isAsync, isEvent);
+        });
+      }
 
-  iterateArgs(func) {
-    this.args.forEach((arg, index) => {
-      let isAsync = arg instanceof AsyncObject;
-      let isEvent = arg instanceof Event;
-      func(arg, index, isAsync, isEvent);
-    });
-  }
+      hasNoArgs() {
+        return this.args.length === 0;
+      }
 
-  hasNoArgs() {
-    return this.args.length === 0;
-  }
-
-  readyToBeInvoked(readyResultsNum) {
-    return this.args.length === readyResultsNum;
-  }
+      readyToBeInvoked(readyResultsNum) {
+        return this.args.length === readyResultsNum;
+      }
 
 }
 

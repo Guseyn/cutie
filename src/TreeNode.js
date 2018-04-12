@@ -15,7 +15,7 @@ class TreeNode {
     this.position = position;
   }
 
-  /****** To be overriden ******/
+  // TO BE OVERRIDEN
     
     call(result) {
       throw new Error('call must be overridden');
@@ -25,18 +25,14 @@ class TreeNode {
       throw new Error('isLeaf must be overridden');
     }
 
-  /*****************************/
-
-  /*
-    The methods below are not allowed to be overridden
-  */
-
-  callParent(result) {
-    this.parent.insertArgumentResult(this.position, result || this.field);
-    if (this.parent.readyToBeInvoked()) {
-      this.parent.call();
+  // NOT ALLOWED TO BE OVERRIDDEN
+    
+    callParent(result) {
+      this.parent.insertArgumentResult(this.position, result || this.field);
+      if (this.parent.readyToBeInvoked()) {
+        this.parent.call();
+      }
     }
-  }
 
 }
 
