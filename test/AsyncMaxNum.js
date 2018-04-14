@@ -11,10 +11,8 @@ class AsyncMaxNum extends AsyncObject {
   /** 
    it's not an operation with I/O, it's just silly example
   **/
-  definedAsyncCall() {
-    return (a, b, c, callback) => {
-      callback(Math.max(a, b, c));
-    }
+  definedAsyncCall(a, b, c, callback) {
+    callback(Math.max(a, b, c));
   }
 
   callbackWithError() {

@@ -9,11 +9,9 @@ class AsyncAssert extends AsyncObject {
     super(actual, expected);
   }
 
-  definedSyncCall() {
-    return (actual, expected) => {
-      assert.strictEqual(actual, expected);
-      return actual;
-    }
+  definedSyncCall(actual, expected) {
+    assert.strictEqual(actual, expected);
+    return actual;
   }
 
 }

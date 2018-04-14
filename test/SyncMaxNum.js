@@ -8,10 +8,8 @@ class SyncMaxNum extends AsyncObject {
     super(a, b, c);
   }
 
-  definedSyncCall() {
-    return (a, b, c) => {
-      return Math.max(a, b, c);
-    }
+  definedSyncCall(a, b, c) {
+    return Math.max(a, b, c);
   }
 
 }
