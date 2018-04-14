@@ -20,16 +20,14 @@ class AsyncTreeNode extends TreeNode {
     call() {
       let args = this.argResults;
       try {
-        let asyncCall = this.field.definedAsyncCall();
         if (this.field.callbackWithError()) {
-          this.invokeAsyncCallWithError(asyncCall, ...args);
+          this.invokeAsyncCallWithError(...args);
         } else {
-          this.invokeAsyncCallWithoutError(asyncCall, ...args);
+          this.invokeAsyncCallWithoutError(...args);
         }
      } catch(error) {
-        let syncCall = this.field.definedSyncCall();
-        try {
-          this.invokeSyncCall(syncCall, ...args);
+      try {
+          this.invokeSyncCall(...args);
         } catch (error) {
           this.field.onError(error);
         }
@@ -55,8 +53,8 @@ class AsyncTreeNode extends TreeNode {
 
   // PRIVATE
     
-    invokeAsyncCallWithError(asyncCall, ...args) {
-      asyncCall(...args, (error, ...results) => {
+    invokeAsyncCallWithError(...args) {
+      this.field.definedAsyncCall(...args, (error, ...results) => {
         // It's not possible to get rid of null here :(
         if (error != null) {
           this.field.onError(error);
@@ -66,16 +64,16 @@ class AsyncTreeNode extends TreeNode {
       });
     }
 
-    invokeAsyncCallWithoutError(asyncCall, ...args) {
-      asyncCall(...args, (...results) => {
+    invokeAsyncCallWithoutError(...args) {
+      this.field.definedAsyncCall(...args, (...results) => {
         if (this.hasParent()) {
           super.callParent(this.field.onResult(...results));
         }
       });
     }
 
-    invokeSyncCall(syncCall, ...args) {
-      let result = syncCall(...args);
+    invokeSyncCall(...args) {
+      let result = this.field.definedSyncCall(...args);
       if (this.hasParent()) {
         super.callParent(this.field.onResult(result));
       }
