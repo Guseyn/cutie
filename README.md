@@ -1,4 +1,7 @@
 # Cutie
+
+[![NPM Version][npm-image]][npm-url]
+
 Cutie is a lightweight library without any external dependencies, the main point of which is just to provide user with abstractions that make asynchronous code in Node simple and declarative and that's it
 
 # Motivation
@@ -136,3 +139,5 @@ new ParsedJson(
 
 Also Cutie provides <b>Event</b> abstraction for event listeners in Node. [Read more](http://guseyn.com/post-event-new-abstraction-in-cutie#intro).
 
+[npm-image]: https://img.shields.io/npm/v/@guseyn/cutie.svg
+[npm-url]: https://npmjs.org/package/@guseyn/cutie
