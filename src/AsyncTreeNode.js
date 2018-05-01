@@ -79,9 +79,9 @@ class AsyncTreeNode extends TreeNode {
     }
 
     invokeSyncCall(syncCall, ...args) {
-      let result = syncCall(...args);
+      let result = this.field.onResult(syncCall(...args));
       if (this.hasParent()) {
-        super.callParent(this.field.onResult(result));
+        super.callParent(result);
       }
     }
 
