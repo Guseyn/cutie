@@ -27,11 +27,15 @@ class AsyncTreeNode extends TreeNode {
           this.invokeAsyncCallWithoutError(asyncCall, ...args);
         }
      } catch(error) {
-        let syncCall = this.field.definedSyncCall();
-        try {
-          this.invokeSyncCall(syncCall, ...args);
-        } catch (error) {
+        if (error.message !== 'asyncCall or syncCall must be defined') {
           this.field.onError(error);
+        } else {
+          let syncCall = this.field.definedSyncCall();
+          try {
+            this.invokeSyncCall(syncCall, ...args);
+          } catch (error) {
+            this.field.onError(error);
+          }
         }
       }
     }

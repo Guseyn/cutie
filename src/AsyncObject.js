@@ -17,11 +17,11 @@ class AsyncObject {
   // TO BE OVERRIDDEN
 
     definedAsyncCall() {
-      throw new Error(`asyncCall or syncCall must be defined`);
+      throw new Error('asyncCall or syncCall must be defined');
     }
 
     definedSyncCall() {
-      throw new Error(`asyncCall or syncCall must be defined`);
+      throw new Error('asyncCall or syncCall must be defined');
     }
 
     callbackWithError() {
