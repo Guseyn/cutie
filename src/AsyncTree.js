@@ -1,6 +1,6 @@
 'use strict'
 
-const Leaf = require('./Leaf');
+const SimpleTreeNode = require('./SimpleTreeNode');
 const AsyncTreeNode = require('./AsyncTreeNode');
 const NotDefinedAsyncTreeNode = require('./NotDefinedAsyncTreeNode');
 
@@ -43,17 +43,17 @@ class AsyncTree {
         if (isAsync) {
           this.createAsyncTreeNode(argAsField, parent, index);
         } else if (isEvent) {
-          this.createLeaf((...eventArgs) => {
+          this.createSimpleTreeNode((...eventArgs) => {
             argAsField.definedBody(...eventArgs);
           }, parent, index);
         } else {
-          this.createLeaf(argAsField, parent, index);
+          this.createSimpleTreeNode(argAsField, parent, index);
        }
       });
     }
 
-    createLeaf(field, parent, index) {
-      let treeNode = new Leaf(field, parent, index);
+    createSimpleTreeNode(field, parent, index) {
+      let treeNode = new SimpleTreeNode(field, parent, index);
       this.nodes.push(treeNode);
     }
 
