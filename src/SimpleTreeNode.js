@@ -2,8 +2,13 @@
 
 const TreeNode = require('./TreeNode');
 
-class Leaf extends TreeNode {
-
+class SimpleTreeNode extends TreeNode {
+  
+  /*
+    field: simple argument (not AsyncObject, can be Event)
+    parent: AsyncTreeNode or NotDefinedAsyncTree
+    position: int
+  */
   constructor(field, parent, position) {
     super(field, parent, position);
   }
@@ -20,4 +25,4 @@ class Leaf extends TreeNode {
 
 }
 
-module.exports = Leaf;
+module.exports = SimpleTreeNode;
