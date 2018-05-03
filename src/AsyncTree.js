@@ -32,12 +32,6 @@ class AsyncTree {
 
   // PRIVATE
   
-    createAsyncTreeNode(field, parent, index) {
-      let asyncTreeNode = new AsyncTreeNode(field, parent, index);
-      this.nodes.push(asyncTreeNode);
-      this.createChildNodes(field, asyncTreeNode);
-    }
-  
     createChildNodes(field, parent) {
       field.iterateArgs((argAsField, index, isAsync, isEvent) => {
         if (isAsync) {
@@ -51,7 +45,13 @@ class AsyncTree {
        }
       });
     }
-
+  
+    createAsyncTreeNode(field, parent, index) {
+      let asyncTreeNode = new AsyncTreeNode(field, parent, index);
+      this.nodes.push(asyncTreeNode);
+      this.createChildNodes(field, asyncTreeNode);
+    }
+  
     createSimpleTreeNode(field, parent, index) {
       let treeNode = new SimpleTreeNode(field, parent, index);
       this.nodes.push(treeNode);
