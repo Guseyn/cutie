@@ -2,7 +2,7 @@
 
 const TreeNode = require('./TreeNode');
 
-class BasicTreeNode extends TreeNode {
+class Leaf extends TreeNode {
 
   constructor(field, parent, position) {
     super(field, parent, position);
@@ -20,4 +20,4 @@ class BasicTreeNode extends TreeNode {
 
 }
 
-module.exports = BasicTreeNode;
+module.exports = Leaf;
