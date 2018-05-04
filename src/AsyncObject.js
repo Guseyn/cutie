@@ -12,6 +12,7 @@ class AsyncObject {
   */
   constructor(...args) {
     this.args = args;
+    this.tree = new AsyncTree(this);
   }
 
   // TO BE OVERRIDDEN
@@ -36,10 +37,10 @@ class AsyncObject {
       return result;
     }
 
-  // PUBLIC
+  // PUBLIC API
 
     call() {
-      new AsyncTree(this).create().call();
+      this.tree.create().call();
     }
 
     // NOT ALLOWED TO BE OVERRIDDEN
