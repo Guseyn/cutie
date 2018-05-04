@@ -45,7 +45,7 @@ class AsyncTree {
        }
       });
     }
-  
+
     createAsyncTreeNode(field, parent, index) {
       let asyncTreeNode = new AsyncTreeNode(field, parent, index);
       this.nodes.push(asyncTreeNode);
