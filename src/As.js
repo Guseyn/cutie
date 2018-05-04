@@ -22,6 +22,9 @@ class As extends AsyncObject {
       } else if (args.length === 1) {
         key = args[0];
         result = this.cache[key];
+        if (!result) {
+          throw new Error(`There is no value that is cached with key: ${key}`);
+        }
       } else {
         throw new Error('As can have only one or two arguments');
       }
