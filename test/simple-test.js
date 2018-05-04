@@ -8,23 +8,27 @@ const As = require('./../src/As');
 
 let testAsyncObject = new Cache(
   new As(
-    new AsyncMaxNum(1, 3, 
+    new AsyncMaxNum(
       new As(
-        new AsyncMaxNum(1, 2, 4), 'max1'
-      )
-    ), 'max2'
-  ),
-  new As(
-    new AsyncMaxNum(2,
-     new As(
-      new SyncMaxNum(3, 4,
-        new As(
-          new SyncMaxNum(5, 4, 6), 'max3'
-        )
-      ), 'max4'
-    ), 1), 'max5'
-  ),
-  new As(8, 'max6')
+        new AsyncMaxNum(1, 3, 
+          new As(
+            new AsyncMaxNum(1, 2, 4), 'max1'
+          )
+        ), 'max2'
+      ),
+      new As(
+        new AsyncMaxNum(2,
+          new As(
+            new SyncMaxNum(3, 4,
+              new As(
+                new SyncMaxNum(5, 4, 6), 'max3'
+              )
+            ), 'max4'
+          ), 1), 'max5'
+      ),
+      new As(8, 'max6')
+    ), 'max7'
+  )
 ).forTree(
   new SyncAssert(
     new SyncAssert(
@@ -43,7 +47,7 @@ let testAsyncObject = new Cache(
       ),
 
       new AsyncMaxNum(3, 4, 8)
-    ), 8
+    ), new As('max7')
   )
 );
 

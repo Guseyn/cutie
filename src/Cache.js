@@ -26,7 +26,7 @@ class Cache extends AsyncObject {
   forTree(tree) {
     this.nextTree = tree;
     this.nextTree.iterateArgs(
-      arg => this.iterateCacheAttachments(arg)
+      arg => this.attachCacheToAsObjects(arg)
     );
     return this;
   }
@@ -39,13 +39,9 @@ class Cache extends AsyncObject {
     }
     if (arg instanceof AsyncObject) {
       arg.iterateArgs(
-        arg => this.iterateCacheAttachments(arg)
+        arg => this.attachCacheToAsObjects(arg)
       );
     }
-  }
-
-  iterateCacheAttachments(arg) {
-    this.attachCacheToAsObjects(arg);
   }
 
 }
