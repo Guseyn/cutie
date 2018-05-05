@@ -66,6 +66,8 @@ class AsyncTreeNode extends TreeNode {
           this.field.onError(error);
         } else if (this.hasParent()) {
           super.callParent(this.field.onResult(...results));
+        } else {
+          this.field.onResult(...results)
         }
       });
     }
@@ -74,6 +76,8 @@ class AsyncTreeNode extends TreeNode {
       asyncCall(...args, (...results) => {
         if (this.hasParent()) {
           super.callParent(this.field.onResult(...results));
+        } else {
+          this.field.onResult(...results)
         }
       });
     }
