@@ -25,16 +25,20 @@ class AsyncObject {
       throw new Error('asyncCall or syncCall must be defined');
     }
 
-    callbackWithError() {
-      return true;
-    }
-
     onError(error) {
       throw error;
     }
 
     onResult(result) {
       return result;
+    }
+
+    callbackWithError() {
+      return true;
+    }
+
+    continueAfterFail() {
+      return false;
     }
 
   // PUBLIC API
