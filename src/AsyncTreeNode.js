@@ -34,7 +34,10 @@ class AsyncTreeNode extends TreeNode {
           try {
             this.invokeSyncCall(syncCall, ...args);
           } catch (error) {
-            this.field.onError(error);
+            let errResult = this.field.onError(error);
+            if (this.field.continueAfterFail()) {
+              super.callParent(errResult || error);
+            }
           }
         }
       }
@@ -63,7 +66,10 @@ class AsyncTreeNode extends TreeNode {
       asyncCall(...args, (error, ...results) => {
         // It's not possible to get rid of null here :(
         if (error != null) {
-          this.field.onError(error);
+          let errResult = this.field.onError(error);
+          if (this.field.continueAfterFail()) {
+            super.callParent(errResult || error);
+          }
         } else if (this.hasParent()) {
           super.callParent(this.field.onResult(...results));
         } else {
