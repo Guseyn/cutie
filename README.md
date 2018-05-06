@@ -139,5 +139,9 @@ new ParsedJson(
 
 Also Cutie provides <b>Event</b> abstraction for event listeners in Node. [Read more](http://guseyn.com/post-event-new-abstraction-in-cutie#intro).
 
+# Updates:
+
+'As' conception: [Read](http://guseyn.com/post-as-conception#intro) 
+
 [npm-image]: https://img.shields.io/npm/v/@guseyn/cutie.svg
 [npm-url]: https://npmjs.org/package/@guseyn/cutie
