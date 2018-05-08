@@ -33,12 +33,28 @@ class AsyncObject {
       return result;
     }
 
-    callbackWithError() {
-      return true;
+    /* 
+      Undefined behavior by default.
+      Works only if this.continueAfterFail returns true
+        (in that case onError and onResult will be ignored),
+      Returns represented result(or error, or combination of them)
+        of this async object.
+    */
+    onErrorAndResult(error, result) {
+      return result;
     }
-
+    
+    /* 
+      If it returns true, then this.onError and this.onResult will be ignored, 
+      and the represented result of this object
+        will be returned by this.onErrorAndResult.
+    */
     continueAfterFail() {
       return false;
+    }
+
+    callbackWithError() {
+      return true;
     }
 
   // PUBLIC API

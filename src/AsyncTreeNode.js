@@ -1,6 +1,7 @@
 'use strict'
 
 const TreeNode = require('./TreeNode');
+const NullError = require('./NullError');
 
 class AsyncTreeNode extends TreeNode {
 
@@ -31,14 +32,7 @@ class AsyncTreeNode extends TreeNode {
           this.field.onError(error);
         } else {
           let syncCall = this.field.definedSyncCall();
-          try {
-            this.invokeSyncCall(syncCall, ...args);
-          } catch (error) {
-            let errResult = this.field.onError(error);
-            if (this.field.continueAfterFail()) {
-              super.callParent(errResult || error);
-            }
-          }
+          this.invokeSyncCall(syncCall, ...args);
         }
       }
     }
@@ -61,38 +55,67 @@ class AsyncTreeNode extends TreeNode {
     }
 
   // PRIVATE
-    
+
     invokeAsyncCallWithError(asyncCall, ...args) {
       asyncCall(...args, (error, ...results) => {
-        // It's not possible to get rid of null here :(
-        if (error != null) {
-          let errResult = this.field.onError(error);
-          if (this.field.continueAfterFail()) {
-            super.callParent(errResult || error);
-          }
-        } else if (this.hasParent()) {
-          super.callParent(this.field.onResult(...results));
-        } else {
-          this.field.onResult(...results)
+        if (!this.processedError(error, ...results)) {
+          this.processedResult(...results);
         }
       });
     }
 
     invokeAsyncCallWithoutError(asyncCall, ...args) {
       asyncCall(...args, (...results) => {
-        if (this.hasParent()) {
-          super.callParent(this.field.onResult(...results));
-        } else {
-          this.field.onResult(...results)
-        }
+        this.processedResult(...results);
       });
     }
 
     invokeSyncCall(syncCall, ...args) {
-      let result = this.field.onResult(syncCall(...args));
-      if (this.hasParent()) {
-        super.callParent(result);
+      try {
+        let syncCallResult = syncCall(...args);
+        this.processedResult(syncCallResult);
+      } catch (error) {
+        this.processedError(error);
       }
+    }
+
+    processedError(error, ...results) {
+      let isProcessed = false;
+      // It's not possible to get rid of null here :(
+      if (error != null) {
+        if (this.hasParent()) {
+          if (this.field.continueAfterFail()) {
+            super.callParent(this.field.onErrorAndResult(error, ...results));
+          } else {
+            this.field.onError(error);
+          }
+        } else {
+          if (this.field.continueAfterFail()) {
+            this.field.onErrorAndResult(error, ...results);
+          } else {
+            this.field.onError(error);
+          }
+        }
+        isProcessed = true;
+      }
+      return isProcessed;
+    }
+
+    processedResult(...results) {
+      if (this.hasParent()) {
+        if (this.field.continueAfterFail()) {
+          super.callParent(this.field.onErrorAndResult(new NullError(), ...results));
+        } else {
+          super.callParent(this.field.onResult(...results));
+        }
+      } else {
+        if (this.field.continueAfterFail()) {
+          this.field.onErrorAndResult(new NullError(), ...results);
+        } else {
+          this.field.onResult(...results);
+        }
+      }
+      return true;
     }
 
 }
