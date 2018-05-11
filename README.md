@@ -27,7 +27,7 @@ new WrittenFile(
 ).call();
 ```
 # How to use
-You can use Cutie as dependency via npm:
+You can use Cutie as a dependency via npm:
 <b>npm install @guseyn/cutie</b>
 ```js
 const AsyncObject = require('@guseyn/cutie').AsyncObject;
