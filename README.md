@@ -2,7 +2,7 @@
 
 [![NPM Version][npm-image]][npm-url]
 
-Cutie is a lightweight library without any external dependencies, the main point of which is just to provide user with abstractions that make asynchronous code in Node simple and declarative and that's it
+Cutie is a lightweight library without any external dependencies, the main point of which is just to provide user with abstractions that make asynchronous code in Node simple and declarative.
 
 # Motivation
 Let's say we want to write content to a file that has been read from another one. And all these operations are asynchronous, of course. So, instead of writing something like this:
