@@ -92,6 +92,7 @@ class AsyncTreeNode extends TreeNode {
         } else {
           if (this.field.continueAfterFail()) {
             this.field.onErrorAndResult(error, ...results);
+            this.field.callNextTreeIfExists();
           } else {
             this.field.onError(error);
           }
@@ -114,6 +115,7 @@ class AsyncTreeNode extends TreeNode {
         } else {
           this.field.onResult(...results);
         }
+        this.field.callNextTreeIfExists();
       }
       return true;
     }

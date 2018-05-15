@@ -6,7 +6,6 @@ class As extends AsyncObject {
 
   constructor(...args) {
     super(...args);
-    this.cache;
   }
 
   definedSyncCall() {
@@ -30,11 +29,6 @@ class As extends AsyncObject {
       }
       return result;
     }
-  }
-
-  withCache(cacheObj) {
-    this.cache = cacheObj;
-    return this;
   }
 
 }
