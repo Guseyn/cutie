@@ -13,6 +13,8 @@ class AsyncObject {
   constructor(...args) {
     this.args = args;
     this.tree = new AsyncTree(this);
+    this.next;
+    this.cache = {};
   }
 
   // TO BE OVERRIDDEN
@@ -34,14 +36,11 @@ class AsyncObject {
     }
 
     /* 
-      Undefined behavior by default.
       Works only if this.continueAfterFail returns true
-        (in that case onError and onResult will be ignored),
-      Returns represented result(or error, or combination of them)
-        of this async object.
+        (in that case this.onError and this.onResult will be ignored),
     */
     onErrorAndResult(error, result) {
-      return result;
+      return error || result;
     }
     
     /* 
@@ -60,7 +59,13 @@ class AsyncObject {
   // PUBLIC API
 
     call() {
+      this.propagateCache(this);
       this.tree.create().call();
+    }
+
+    after(asyncObject) {
+      this.next = asyncObject;
+      return this;
     }
 
     // NOT ALLOWED TO BE OVERRIDDEN
@@ -79,6 +84,27 @@ class AsyncObject {
 
       readyToBeInvoked(readyResultsNum) {
         return this.args.length === readyResultsNum;
+      }
+
+      callNextTreeIfExists() {
+        if (this.next) {
+          this.propagateCache(this.next);
+          new AsyncTree(this.next).create().call();
+        }
+      }
+
+      propagateCache(arg) {
+        if (arg instanceof AsyncObject) {
+          arg.withCache(this.cache);
+          arg.iterateArgs(
+            arg => this.propagateCache(arg)
+          );
+        }
+      }
+
+      withCache(cache) {
+        this.cache = cache;
+        return this;
       }
 
 }
