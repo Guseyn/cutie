@@ -4,28 +4,15 @@ const AsyncObject = require('./AsyncObject');
 
 class As extends AsyncObject {
 
-  constructor(...args) {
-    super(...args);
+  constructor(key) {
+    super(key);
   }
 
   definedSyncCall() {
-    return (...args) => {
-      let key;
-      let value;
-      let result;
-      if (args.length === 2) {
-        value = args[0];
-        key = args[1];
-        this.cache[key] = value;
-        result = this.cache[key];
-      } else if (args.length === 1) {
-        key = args[0];
-        result = this.cache[key];
-        if (!result) {
-          throw new Error(`There is no value that is cached with key: ${key}`);
-        }
-      } else {
-        throw new Error('As can have only one or two arguments');
+    return (key) => {
+      let result = this.cache[key];
+      if (!result) {
+        throw new Error(`There is no value that is cached with key: ${key}`);
       }
       return result;
     }
@@ -33,4 +20,6 @@ class As extends AsyncObject {
 
 }
 
-module.exports = As;
+module.exports = (key) => {
+  return new As(key);
+};
