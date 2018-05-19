@@ -141,7 +141,9 @@ Also Cutie provides <b>Event</b> abstraction for event listeners in Node. [Read 
 
 # Updates:
 
-'As' conception: [Read](http://guseyn.com/post-as-conception#intro) 
+'As' conception: [Read](http://guseyn.com/post-as-conception#intro)
+
+API of 'As' conception is changed (since v.1.3.6): [Read](http://guseyn.com/post-after-conception#intro)
 
 Sequence of async trees: [Read](http://guseyn.com/post-after-conception#intro)
 
