@@ -15,6 +15,7 @@ class AsyncObject {
     this.tree = new AsyncTree(this);
     this.next;
     this.cache = {};
+    this.asKey;
   }
 
   // TO BE OVERRIDDEN
@@ -68,6 +69,11 @@ class AsyncObject {
       return this;
     }
 
+    as(key) {
+      this.asKey = key;
+      return this;
+    }
+
     // NOT ALLOWED TO BE OVERRIDDEN
 
       iterateArgs(func) {
@@ -104,6 +110,13 @@ class AsyncObject {
 
       withCache(cache) {
         this.cache = cache;
+        return this;
+      }
+
+      saveValueIntoCacheIfNeeded(value) {
+        if (this.asKey) {
+          this.cache[this.asKey] = value;
+        }
         return this;
       }
 

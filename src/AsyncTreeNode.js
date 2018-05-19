@@ -85,13 +85,16 @@ class AsyncTreeNode extends TreeNode {
       if (error != null) {
         if (this.hasParent()) {
           if (this.field.continueAfterFail()) {
-            super.callParent(this.field.onErrorAndResult(error, ...results));
+            let totalResult = this.field.onErrorAndResult(error, ...results);
+            this.field.saveValueIntoCacheIfNeeded(totalResult);
+            super.callParent(totalResult);
           } else {
             this.field.onError(error);
           }
         } else {
           if (this.field.continueAfterFail()) {
-            this.field.onErrorAndResult(error, ...results);
+            let totalResult = this.field.onErrorAndResult(error, ...results);
+            this.field.saveValueIntoCacheIfNeeded(totalResult);
             this.field.callNextTreeIfExists();
           } else {
             this.field.onError(error);
@@ -103,18 +106,22 @@ class AsyncTreeNode extends TreeNode {
     }
 
     processedResult(...results) {
+      let totalResult;
       if (this.hasParent()) {
         if (this.field.continueAfterFail()) {
-          super.callParent(this.field.onErrorAndResult(new NullError(), ...results));
+          totalResult = this.field.onErrorAndResult(new NullError(), ...results);
         } else {
-          super.callParent(this.field.onResult(...results));
+          totalResult = this.field.onResult(...results);
         }
+        this.field.saveValueIntoCacheIfNeeded(totalResult);
+        super.callParent(totalResult);
       } else {
         if (this.field.continueAfterFail()) {
-          this.field.onErrorAndResult(new NullError(), ...results);
+          totalResult = this.field.onErrorAndResult(new NullError(), ...results);
         } else {
-          this.field.onResult(...results);
+          totalResult = this.field.onResult(...results);
         }
+        this.field.saveValueIntoCacheIfNeeded(totalResult);
         this.field.callNextTreeIfExists();
       }
       return true;
