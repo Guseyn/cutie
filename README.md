@@ -148,7 +148,7 @@ API of 'As' conception is changed (since v.1.3.6): [Read](http://guseyn.com/post
 API of 'As' conception is changed (since v.1.3.7):
 
 Consider the following example with async tree:
-```
+```js
 new SavedNewAccountOfUser(
   new RetrievedUser(userId),
   new RetrievedOldAccountOfUser(
@@ -160,7 +160,7 @@ So, here we try to save new account for user that based(somehow) on its old one.
 
 Cutie proposes following solution:
 
-```
+```js
 new RetrievedUser(userId).as('user')
   .after(
     new SavedNewAccountOfUser(
