@@ -145,7 +145,37 @@ Also Cutie provides <b>Event</b> abstraction for event listeners in Node. [Read 
 
 API of 'As' conception is changed (since v.1.3.6): [Read](http://guseyn.com/post-after-conception#intro)
 
-Sequence of async trees: [Read](http://guseyn.com/post-after-conception#intro)
+API of 'As' conception is changed (since v.1.3.7):
+
+Consider the following example with async tree:
+```
+new SavedNewAccountOfUser(
+  new RetrievedUser(userId),
+  new RetrievedOldAccountOfUser(
+    new RetrievedUser(userId)
+  )
+).call();
+```
+So, here we try to save new account for user that based(somehow) on its old one. And as you can see, we retrieve user here twice. `RetrievedUser` might be a quite expensive operation, so we don't want to do it more than one time.
+
+Cutie proposes following solution:
+
+```
+new RetrievedUser(userId).as('user')
+  .after(
+    new SavedNewAccountOfUser(
+      as('user'),
+      new RetrievedOldAccountOfUser(
+        as('user')
+      )
+    )
+  ).call();
+```
+Every `async object` can has `as(key)` method, which says to the `async object` that it must save its represented value(result) into the cache with the specified `key`.
+
+If `as(key)` method is used as independent(separate) function, it returns `AsyncObject`, which represented value is cached value from the cache with the specified `key`.
+
+Sequence of async trees(about 'after' word): [Read](http://guseyn.com/post-after-conception#intro)
 
 [npm-image]: https://img.shields.io/npm/v/@guseyn/cutie.svg
 [npm-url]: https://npmjs.org/package/@guseyn/cutie
