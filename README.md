@@ -141,9 +141,9 @@ Also Cutie provides <b>Event</b> abstraction for event listeners in Node. [Read 
 
 # Updates:
 
-'As' conception: [Read](http://guseyn.com/post-as-conception#intro)
+'As' conception: [Read](http://guseyn.com/post-as-conception#intro).
 
-API of 'As' conception is changed (since v.1.3.7), [Read](http://guseyn.com/post-after-conception#intro).
+API of 'As' conception is changed (since v.1.3.7): [Read](http://guseyn.com/post-after-conception#intro).
 
 Consider the following example with async tree:
 ```js
@@ -173,7 +173,7 @@ Every `async object` can has `as(key)` method, which says to the `async object` 
 
 If `as(key)` method is used as independent(separate) function, it returns `AsyncObject`, which represented value is cached value from the cache with the specified `key`.
 
-Sequence of async trees(about 'after' word): [Read](http://guseyn.com/post-after-conception#intro)
+Sequence of async trees(about 'after' word): [Read](http://guseyn.com/post-after-conception#intro).
 
 [npm-image]: https://img.shields.io/npm/v/@guseyn/cutie.svg
 [npm-url]: https://npmjs.org/package/@guseyn/cutie
