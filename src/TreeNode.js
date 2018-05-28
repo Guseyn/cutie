@@ -28,9 +28,7 @@ class TreeNode {
   // NOT ALLOWED TO BE OVERRIDDEN
     
     callParent(result) {
-      this.parent.insertArgumentResult(
-        this.position, typeof result !== 'undefined' ? result : this.field
-      );
+      this.parent.insertArgumentResult(this.position, result);
       if (this.parent.readyToBeInvoked()) {
         this.parent.call();
       }
