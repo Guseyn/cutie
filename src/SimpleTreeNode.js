@@ -16,7 +16,7 @@ class SimpleTreeNode extends TreeNode {
   // PUBLIC
 
     call() {
-      super.callParent();
+      super.callParent(this.field);
     }
 
     isLeaf() {
