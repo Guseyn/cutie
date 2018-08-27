@@ -175,5 +175,5 @@ If `as(key)` method is used as independent(separate) function, it returns `Async
 
 Sequence of async trees(about 'after' word): [Read](http://guseyn.com/post-after-conception#intro).
 
-[npm-image]: https://img.shields.io/npm/v/@guseyn/cutie.svg
-[npm-url]: https://npmjs.org/package/@guseyn/cutie
+[npm-image]: https://img.shields.io/npm/v/@cutie/core.svg
+[npm-url]: https://npmjs.org/package/@cutie/core
