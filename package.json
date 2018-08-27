@@ -28,5 +28,7 @@
   "bugs": {
     "url": "https://github.com/Guseyn/cutie/issues"
   },
-  "homepage": "https://github.com/Guseyn/cutie#readme"
+  "homepage": "https://github.com/Guseyn/cutie#readme",
+  "dependencies": {},
+  "devDependencies": {}
 }
