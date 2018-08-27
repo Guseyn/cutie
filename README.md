@@ -28,9 +28,9 @@ new WrittenFile(
 ```
 # How to use
 You can use Cutie as a dependency via npm:
-<b>npm install @guseyn/cutie</b>
+<b>npm install @cutie/core</b>
 ```js
-const AsyncObject = require('@guseyn/cutie').AsyncObject;
+const AsyncObject = require('@cutie/core').AsyncObject;
 const fs = require('fs');
 
 class WrittenFile extends AsyncObject {
@@ -46,7 +46,7 @@ class WrittenFile extends AsyncObject {
 }
 ```
 ```js
-const AsyncObject = require('@guseyn/cutie').AsyncObject;
+const AsyncObject = require('@cutie/core').AsyncObject;
 const fs = require('fs');
 
 class ReadFile extends AsyncObject {
@@ -65,7 +65,7 @@ AsyncObject also provides methods OnResult and OnError, so that you can process 
 
 Let's say we want to read a json file and parse all information from there. Cutie provides two ways. First of them is just to create <b>ReadJsonFile</b> async object like this:
 ```js
-const AsyncObject = require('@guseyn/cutie').AsyncObject;
+const AsyncObject = require('@cutie/core').AsyncObject;
 const fs = require('fs');
 
 class ReadJsonFile extends AsyncObject {
@@ -109,7 +109,7 @@ new ReadJsonFile('./../file.txt', 'utf8').call();
 ```
 Or you can use <b>ReadFile</b> with <b>ParsedJson</b> that looks like this:
 ```js
-const AsyncObject = require('@guseyn/cutie').AsyncObject;
+const AsyncObject = require('@cutie/core').AsyncObject;
 const fs = require('fs');
 const ReadFile = require('./ReadFile');
 
