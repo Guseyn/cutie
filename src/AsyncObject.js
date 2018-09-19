@@ -12,7 +12,6 @@ class AsyncObject {
   */
   constructor(...args) {
     this.args = args;
-    this.tree = new AsyncTree(this);
     this.next;
     this.cache = {};
     this.asKey;
@@ -61,7 +60,7 @@ class AsyncObject {
 
     call() {
       this.propagateCache(this);
-      this.tree.create().call();
+      new AsyncTree(this).create().call();
     }
 
     after(asyncObject) {
