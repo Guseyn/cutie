@@ -2,10 +2,10 @@
 
 [![NPM Version][npm-image]][npm-url]
 
-Cutie is a lightweight library without any external dependencies, the main point of which is just to provide user with abstractions that make asynchronous code in Node simple and declarative. It's an implementation of the [Async Tree Pattern](https://github.com/Guseyn/async-tree-patern/blob/master/Async_Tree_Patern.pdf).
+<b>Cutie</b> is a lightweight library without any external dependencies, the main point of which is just to provide user with abstractions that make asynchronous code in Node simple and declarative. It's an implementation of the [Async Tree Pattern](https://github.com/Guseyn/async-tree-patern/blob/master/Async_Tree_Patern.pdf).
 
 # Motivation
-Let's say we want to write content to a file that has been read from another one. And all these operations are asynchronous, of course. So, instead of writing something like this:
+Let's say we want to read content from one file and write it to another one. And all these operations are asynchronous, of course. So, instead of writing something like this:
 ```js
 fs.readFile('./../file1.txt', 'utf8', (err, result) => {
   if (err != null) {
@@ -141,9 +141,9 @@ Also Cutie provides <b>Event</b> abstraction for event listeners in Node. [Read 
 
 # Updates:
 
-'As' conception: [Read](http://guseyn.com/post-as-conception#intro).
+`As` conception: [Read](http://guseyn.com/post-as-conception#intro).
 
-API of 'As' conception is changed (since v.1.3.7): [Read](http://guseyn.com/post-after-conception#intro).
+API of `As` conception is changed (since v.1.3.7): [Read](http://guseyn.com/post-after-conception#intro).
 
 Consider the following example with async tree:
 ```js
@@ -173,7 +173,11 @@ Every `async object` can has `as(key)` method, which says to the `async object` 
 
 If `as(key)` method is used as independent(separate) function, it returns `AsyncObject`, which represented value is cached value from the cache with the specified `key`.
 
-Sequence of async trees(about 'after' word): [Read](http://guseyn.com/post-after-conception#intro).
+<b>Sequence of async trees</b>(about `after` word): [Read](http://guseyn.com/post-after-conception#intro).
+
+## Libraries that use cutie
+
+[node-test-executor](https://github.com/Guseyn/node-test-executor), [cutie-is](https://github.com/Guseyn/cutie-is), [cutie-assert](https://github.com/Guseyn/cutie-assert), [cutie-fs](https://github.com/Guseyn/cutie-fs), [cutie-http](https://github.com/Guseyn/cutie-http), [cutie-https](https://github.com/Guseyn/cutie-http), [cutie-rest](https://github.com/Guseyn/cutie-rest), [cutie-buffer](https://github.com/Guseyn/cutie-buffer), [cutie-error](https://github.com/Guseyn/cutie-error), [cutie-date](https://github.com/Guseyn/cutie-date), [cutie-event](https://github.com/Guseyn/cutie-event), [cutie-stream](https://github.com/Guseyn/cutie-stream), [cutie-object](https://github.com/Guseyn/cutie-object), [cutie-process](https://github.com/Guseyn/cutie-process), [cutie-iterator](https://github.com/Guseyn/cutie-iterator), [cutie-path](https://github.com/Guseyn/cutie-path), [cutie-if-else](https://github.com/Guseyn/cutie-if-else), [cutie-cluster](https://github.com/Guseyn/cutie-cluster), [page-static-generator](https://github.com/Guseyn/page-static-generator).
 
 [npm-image]: https://img.shields.io/npm/v/@cuties/cutie.svg
 [npm-url]: https://npmjs.org/package/@cuties/cutie
