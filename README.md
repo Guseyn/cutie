@@ -5,7 +5,7 @@
 <b>Cutie</b> is a lightweight library without any external dependencies, the main point of which is just to provide user with abstractions that make asynchronous code in Node simple and declarative. It's an implementation of the [Async Tree Pattern](https://github.com/Guseyn/async-tree-patern/blob/master/Async_Tree_Patern.pdf).
 
 # Motivation
-Let's say we want to read content from one file and write it to another one. And all these operations are asynchronous, of course. So, instead of writing something like this:
+Let's say we want to read content from a file and write it to another one. And all these operations are asynchronous, of course. So, instead of writing something like this:
 ```js
 fs.readFile('./../file1.txt', 'utf8', (err, result) => {
   if (err != null) {
