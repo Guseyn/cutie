@@ -1,19 +1,17 @@
 'use strict'
 
-const AsyncObject = require('./../src/AsyncObject');
+const AsyncObject = require('./../src/AsyncObject')
 
 class SyncMaxNum extends AsyncObject {
-
-  constructor(a, b, c) {
-    super(a, b, c);
+  constructor (a, b, c) {
+    super(a, b, c)
   }
 
-  definedSyncCall() {
+  definedSyncCall () {
     return (a, b, c) => {
-      return Math.max(a, b, c);
+      return Math.max(a, b, c)
     }
   }
-
 }
 
-module.exports = SyncMaxNum;
+module.exports = SyncMaxNum

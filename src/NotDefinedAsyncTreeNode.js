@@ -1,9 +1,7 @@
 'use strict'
 
 class NotDefinedAsyncTreeNode {
-
-  constructor() {}
-
+  constructor () {}
 }
 
-module.exports = NotDefinedAsyncTreeNode;
+module.exports = NotDefinedAsyncTreeNode
