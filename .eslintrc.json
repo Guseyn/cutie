@@ -1,0 +1,6 @@
+{
+    "extends": "standard",
+    "rules": {
+      "no-useless-constructor": ["off", "always"]
+    }
+}
