@@ -3,7 +3,10 @@
 const SyncAssert = require('./SyncAssert')
 const AsyncMaxNum = require('./AsyncMaxNum')
 const SyncMaxNum = require('./AsyncMaxNum')
+const BrokenAsyncObject = require('./BrokenAsyncObject')
+const SafeAsyncObject = require('./SafeAsyncObject')
 const as = require('./../src/As')
+const assert = require('assert')
 
 let testAsyncObject =
   new AsyncMaxNum(
@@ -42,3 +45,34 @@ let testAsyncObject =
     )
 
 testAsyncObject.call()
+
+let testAsyncObjectWithFailedAs =
+  new SyncAssert(
+    new AsyncMaxNum(1, 2, as('max'))
+  )
+
+// we can do it, because here AsyncMaxNum does not work with I/O
+try {
+  testAsyncObjectWithFailedAs.call()
+} catch (err) {
+  assert.deepStrictEqual(err, new Error('There is no value that is cached with key: max'))
+}
+
+let testAsyncObjectWithoutDefinedCall =
+  new BrokenAsyncObject()
+
+try {
+  testAsyncObjectWithoutDefinedCall.call()
+} catch (err) {
+  assert.deepStrictEqual(err, new Error('asyncCall or syncCall must be defined'))
+}
+
+let testAsyncObjectWithSafeError =
+  new SafeAsyncObject()
+
+
+try {
+
+} catch (err) {
+  assert.deepStrictEqual(err, new Error('safe error'))
+}
