@@ -1,4 +1,4 @@
-# Cutie
+<img src="https://github.com/Guseyn/logos/raw/master/cutie.svg?sanitize=true">
 
 [![NPM Version][npm-image]][npm-url]
 
