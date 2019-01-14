@@ -1,6 +1,7 @@
 {
     "extends": "standard",
     "rules": {
-      "no-useless-constructor": ["off", "always"]
+      "no-useless-constructor": ["off", "always"],
+      "standard/no-callback-literal": ["off", "always"]
     }
 }

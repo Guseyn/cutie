@@ -1,7 +1,6 @@
 'use strict'
 
 const TreeNode = require('./TreeNode')
-const NullError = require('./NullError')
 
 class AsyncTreeNode extends TreeNode {
   /*
@@ -28,7 +27,11 @@ class AsyncTreeNode extends TreeNode {
       }
     } catch (error) {
       if (error.message !== 'asyncCall or syncCall must be defined') {
-        this.field.onError(error)
+        if (this.field.continueAfterFail()) {
+          this.field.onErrorAndResult(error)
+        } else {
+          this.field.onError(error)
+        }
       } else {
         let syncCall = this.field.definedSyncCall()
         this.invokeSyncCall(syncCall, ...args)
@@ -82,22 +85,16 @@ class AsyncTreeNode extends TreeNode {
     let isProcessed = false
     // It's not possible to get rid of null here :(
     if (error != null) {
-      if (this.hasParent()) {
-        if (this.field.continueAfterFail()) {
-          let totalResult = this.field.onErrorAndResult(error, ...results)
-          this.field.saveValueIntoCacheIfNeeded(totalResult)
+      if (this.field.continueAfterFail()) {
+        let totalResult = this.field.onErrorAndResult(error, ...results)
+        this.field.saveValueIntoCacheIfNeeded(totalResult)
+        if (this.hasParent()) {
           super.callParent(totalResult)
         } else {
-          this.field.onError(error)
+          this.field.callNextTreeIfExists()
         }
       } else {
-        if (this.field.continueAfterFail()) {
-          let totalResult = this.field.onErrorAndResult(error, ...results)
-          this.field.saveValueIntoCacheIfNeeded(totalResult)
-          this.field.callNextTreeIfExists()
-        } else {
-          this.field.onError(error)
-        }
+        this.field.onError(error)
       }
       isProcessed = true
     }
@@ -107,7 +104,7 @@ class AsyncTreeNode extends TreeNode {
   processedResult (...results) {
     let totalResult
     if (this.field.continueAfterFail()) {
-      totalResult = this.field.onErrorAndResult(new NullError(), ...results)
+      totalResult = this.field.onErrorAndResult(null, ...results)
     } else {
       totalResult = this.field.onResult(...results)
     }

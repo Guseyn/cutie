@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "node test/simple-test",
+    "test": "node test/test",
     "build": "node build"
   },
   "repository": {
