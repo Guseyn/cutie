@@ -17,7 +17,8 @@ class TreeNode {
   // TO BE OVERRIDEN
 
   call (result) {
-    throw new Error('call must be overridden')
+    result = result || ''
+    throw new Error(`call must be overridden and insert result ${result} into parent node`)
   }
 
   isLeaf () {
