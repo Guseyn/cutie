@@ -106,7 +106,7 @@ let testAsyncObjectWithBrokenEvent =
 try {
   testAsyncObjectWithBrokenEvent.call()
 } catch (err) {
-  assert.deepStrictEqual(err, new Error('Method definedBody must be overriden with arguments of the event/eventListener you call'))
+  assert.deepStrictEqual(err, new Error('Method definedBody must be overriden with arguments  of the event/eventListener you call'))
 }
 
 let brokenTreeNode = new BrokenTreeNode()
@@ -120,7 +120,7 @@ try {
 try {
   brokenTreeNode.call()
 } catch (err) {
-  assert.deepStrictEqual(err, new Error('call must be overridden'))
+  assert.deepStrictEqual(err, new Error('call must be overridden and insert result  into parent node'))
 }
 
 // just test safe error in callback
