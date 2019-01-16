@@ -31,7 +31,9 @@
   },
   "homepage": "https://github.com/Guseyn/cutie#readme",
   "dependencies": {
-    "@cuties/wall": "^1.0.5",
+    "@cuties/fs": "^1.1.5",
+    "@cuties/json": "^1.0.1",
+    "@cuties/wall": "^1.0.6",
     "nyc": "^13.1.0"
   },
   "devDependencies": {
