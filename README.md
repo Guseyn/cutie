@@ -2,6 +2,7 @@
 
 [![NPM Version][npm-image]][npm-url]
 [![Build Status](https://travis-ci.org/Guseyn/cutie.svg?branch=master)](https://travis-ci.org/Guseyn/cutie)
+[![codecov](https://codecov.io/gh/Guseyn/cutie/branch/master/graph/badge.svg)](https://codecov.io/gh/Guseyn/cutie)
 
 <b>Cutie</b> is a lightweight library that implements [Async Tree Pattern](https://github.com/Guseyn/async-tree-patern/blob/master/Async_Tree_Patern.pdf).
 
