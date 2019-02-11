@@ -33,7 +33,7 @@
   "dependencies": {
     "@cuties/fs": "^1.1.5",
     "@cuties/json": "^1.0.1",
-    "@cuties/wall": "^1.0.6",
+    "@cuties/wall": "^1.0.8",
     "nyc": "^13.1.0"
   },
   "devDependencies": {
