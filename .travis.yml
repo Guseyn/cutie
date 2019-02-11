@@ -12,7 +12,7 @@ env:
 jobs:
   include:
     - stage: npm release
-      if: tag IS present AND branch = master AND fork = false
+      if: tag IS present AND fork = false
       node_js: "lts/*"
       script: npm run build
       deploy:
