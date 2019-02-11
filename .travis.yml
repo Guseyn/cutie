@@ -4,21 +4,18 @@ node_js:
 install:
 - npm ci
 script:
-- npm run build
-env:
-  matrix:
-  - secure: tQpGqgdUeWJG5/eBheFD+te7erVVn2brfLxkaWrCCdLT8P4Bonp1NGVX1d0o45zpTESL7AanZ9tyRk8kXPcQyK+PqGJzVzU2GKX/GyDK5XR/45ZIN8mCoDtcRmtuEOz2PC8v3VJjN63zq8l0/MVodUuf8VjQpeyCicK55d3HRvCWXA/dxEMhydsZpJHflGDCN/lsShuGc7igGsEb7sqzvHcF3WMrKehkIslHbOySdQ0s1mWS93vJ3RlpZ6oSbOIPFD8nOsn3oJX79wlD8BxE32gXZ8XslVITCzrvqL8pD0dT2q5gw0f0HJR0dkN+n16DvUmtggdelRwXs8GMi4yJwGhTJvAoStf7TePj5S8xQq9DQVuMdU+56E/OFJAZKkEFZF/+7hd3CpDP2btPumjbVVg13quSf4nG3HMnV1tQ3XBXFEUmVM11h4NgplTNQSlhifxkL40ZUup2UUu120HViPWNzdD6nsIyDN6NycePnyIxOEmAXCZj66oyZhlCXSsS3ZP4daqt1Be6aK7+GGTY7tntgb39PEOccwQ7nZ8VKrd1dfRIJ2W4fIqWDqgq8ci1eM8i3p2/RDuvPDovm5MwtiS5Iwqlf/5FYhVAr3DnzUZUSjtBWDsag1rghPTgfINT9OwDhV1o89ZjArb+pMjZjSfhEmYmk7+s/Clq8F9DKSA=
-  - secure: U6qzmECaweit4c/hetpoRwji99xPZyWhjkkK7v/WhE9YoQQ13vugh2Xa4yvkR7XmYsbqxoSJlev8Vetpm3YqBORTdwwJ+XuZLxnascYFPWT/jJEhiz4QDpArMo6i//V2O82eJ7bKBzwEuIx5juAGwiFJk+Qn8Mf6204E2JxmWNJIarF3IGedspFPXRmo59gU60W54z2h+29qVx+7mY0XCLwyx4bP6lJyOCbel+KlUVQTftsyQ6H1q7BhOsFTBq+L5pYBpFBWr0AJo2x6iB/iV7zacHuKKHvzJRozMhdOsOp0x3o9SZwbj/V8c23kFJ1iq426Hz/uluNQepxZ52CxVUUt60ND8/qUnStwtbVD25MhPWX7KMnWvE7nhw7Hv4bJP1HNlUHlOg+KkKnZVLlXrcSU8RIoFfwpuy0YarmIWPcvB4QXX/dVI+mjkHhOouYutzLVuxjBbPpEknxkJa13CJQdh/UUAkdxdCs2YBL21GUhZr5eCTVhQmOYJXLLD/NavwW1j9uVKlJBvvY/nsGCTaH7+yx0u2xDefnaRXrcgroOkpKis54iM5tNjecODQ+mCIGgk8cGRCKNlOJ64+5rIhC1gNXGFu5u0gjxU2LanG1VaNFvD8afATEq8voVVtkZJAUT3SfHRlGTrIh8S2rpPOnQr/v5KT56flSo8tRaAlk=
+  if: type = pull_request
+  - npm run build
 jobs:
   include:
-    - stage: npm release
-      if: tag IS present AND fork = false
-      node_js: "lts/*"
-      script: npm run build
-      deploy:
-        provider: npm
-        email: "$NPM_EMAIL"
-        api_key: "$NPM_TOKEN"
-        skip_cleanup: true
-        on:
-          tags: true
+  - stage: npm release
+    if: tag IS present AND branch = master AND fork = false
+    node_js: lts/*
+    script: npm run build
+    deploy:
+      provider: npm
+      email: "$NPM_EMAIL"
+      api_key: "$NPM_TOKEN"
+      skip_cleanup: true
+      on:
+        tags: true
