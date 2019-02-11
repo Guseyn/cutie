@@ -5,12 +5,16 @@ install:
   - npm ci
   - npm install -g codecov
 script:
-  - npm run build
-  - ./node_modules/.bin/nyc report --reporter lcovonly -- -R spec
-  - codecov
+  - if [ "${TRAVIS_PULL_REQUEST}" = "true" ]; then
+      npm run build
+      ./node_modules/.bin/nyc report --reporter lcovonly -- -R spec
+      codecov
+    fi
 deploy:
   provider: npm
   email: guseynism@gmail.com
+  script:
+    - npm run build
   api_key:
     secure: QAIyol5sH60ZcPCWQAF+g6IrCE9xbxnTmZ+3Q+UecFPsZGS3rffL/toMbVptunYGPsavyiIq4mtZ8+8RLWBMdL89EaRiBpKYCK+Tmo7coaGhwh5sSWXFIF63mfrxcnBC7B6+yKawmXAQm99z6Kd4ShdbANSqt4UzQOwFUHHQFWc2QyvGzdY/ZJiRAZeNguAh3J705IA7fohzeGycseBoFf4fB24md4JS/XaqgsZ+Rf0Eio+xV1bMFT4Aibpx+gD0r8wY1X/aLzfsRXAPnokz7RJowzg4ksSDNoIJNrh0RRRdbu2XP9MiocwxdkrmbQPvZI496mJowMTXSbv2L3OPTK7g4VJbfSNfQyujhyVfa2mEgE0vrY4UMavvsBgKM2Y5FpnXzNCG7bjGfXzxgu9gYriiVNJGjFQav1Ia39ndsbWtiLLMTAyyxgL7/A42YmzwQKwqmc19+WJFEg2aD63vRnHIwCGsLbUevq26gR+f6376LxWJthjkaLfiOrl+KBKSh7yRGhc4tmJ0pZ2zLkQPKZvArfJMClIWJMb2L9v3gAX56Lw7LHkPOyrbPBO3kjSFzAStJtisBrZx1RY+HUia9TtNTGc/1pPXk9Z7STCiEiuC/7/ZiiuznrJTvdPBgZBD+lwoKmzFKRG2nYc0j2Ea0DBaZzu2b9pHhJ94rteATe0=
   on:
