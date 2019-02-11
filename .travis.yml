@@ -1,16 +1,14 @@
 language: node_js
 node_js:
   - lts/*
+branches:
+  only:
+  - master
 install:
   - npm ci
   - npm install -g codecov
 script:
-  - |
-    if [ "${TRAVIS_PULL_REQUEST}" == "true" ]; then
-      npm run build;
-      ./node_modules/.bin/nyc report --reporter lcovonly -- -R spec;
-      codecov
-    fi
+  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then npm run build; ./node_modules/.bin/nyc report --reporter lcovonly -- -R spec; codecov; fi'
 deploy:
   provider: npm
   email: guseynism@gmail.com
