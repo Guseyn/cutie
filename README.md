@@ -1,7 +1,6 @@
 <img src="https://github.com/Guseyn/logos/raw/master/cutie.svg?sanitize=true">
 
 [![NPM Version][npm-image]][npm-url]
-
 [![Build Status](https://travis-ci.org/Guseyn/cutie.svg?branch=master)](https://travis-ci.org/Guseyn/cutie)
 
 <b>Cutie</b> is a lightweight library that implements [Async Tree Pattern](https://github.com/Guseyn/async-tree-patern/blob/master/Async_Tree_Patern.pdf).
@@ -11,56 +10,54 @@ Let's say we want to read content from a file and write it to another one. And a
 ```js
 fs.readFile('./../file1.txt', 'utf8', (err, result) => {
   if (err != null) {
-    throw err;
+    throw err
   }
  
   fs.writeFile('./../file2.txt', result, (err) => {
     if (err != null) {
-      throw err;
+      throw err
     }
-  });
-});
+  })
+})
 ```
 we can design our code in the following style:
 ```js
 new WrittenFile(
   './../file2.txt',
   new ReadDataByPath('./../file1.txt', 'utf8')
-).call();
+).call()
 ```
 # How to use
 You can use Cutie as a dependency via npm:
-<b>npm install @cuties/cutie</b>
+`npm install @cuties/cutie`
 ```js
-const AsyncObject = require('@cuties/cutie').AsyncObject;
-const fs = require('fs');
+const AsyncObject = require('@cuties/cutie').AsyncObject
+const fs = require('fs')
 
 class WrittenFile extends AsyncObject {
 
   constructor(path, content) {
-    super(path, content);
+    super(path, content)
   }
   
   definedAsyncCall() {
-    return fs.writeFile;
+    return fs.writeFile
   }
   
 }
 ```
 ```js
-const AsyncObject = require('@cuties/cutie').AsyncObject;
-const fs = require('fs');
+const AsyncObject = require('@cuties/cutie').AsyncObject
+const fs = require('fs')
 
 class ReadDataByPath extends AsyncObject {
-
   constructor(path, encoding) {
     super(path, encoding);
   }
   
   definedAsyncCall() {
-    return fs.readFile;
+    return fs.readFile
   }
-
 }
 ```
 AsyncObject also provides methods `OnResult` and `OnError`, so that you can process the `result` from async call and handle an `error` in the specific way (error is being thrown by default).
@@ -71,73 +68,65 @@ const AsyncObject = require('@cuties/cutie').AsyncObject;
 const fs = require('fs');
 
 class ParsedJSON extends AsyncObject {
-  
   constructor(path, encoding) {
-    super(path, encoding);
+    super(path, encoding)
   }
   
   definedAsyncCall() {
-    return fs.readFile;
+    return fs.readFile
   }
   
   onResult(result) {
-    return JSON.parse(result);
+    return JSON.parse(result)
   }
-
 }
 
 // usage
-new ParsedJSON('./../file.txt', 'utf8').call();
+new ParsedJSON('./../file.txt', 'utf8').call()
 ```
-<b>ParsedJSON</b> also could be designed like this:
+`ParsedJSON` also could be designed like this:
 ```js
-const fs = require('fs');
-const ReadFile = require('./ReadFile');
+const fs = require('fs')
+const ReadFile = require('./ReadFile')
 
 class ParsedJSON extends ReadFile {
-  
   constructor(path, encoding) {
-    super(path, encoding);
+    super(path, encoding)
   }
   
   onResult(result) {
-    return JSON.parse(result);
+    return JSON.parse(result)
   }
-
 }
 
 // usage
 new ParsedJSON('./../file.txt', 'utf8').call();
 ```
-Or you can use <b>ReadFile</b> with <b>ParsedJson</b> that looks like this:
+Or you can use `ReadFile` with `ParsedJSON` that looks like this:
 ```js
-const AsyncObject = require('@cuties/cutie').AsyncObject;
-const fs = require('fs');
-const ReadFile = require('./ReadFile');
+const AsyncObject = require('@cuties/cutie').AsyncObject
+const fs = require('fs')
+const ReadFile = require('./ReadFile')
 
 class ParsedJSON extends AsyncObject {
-
   constructor(text) {
-    super(text);
+    super(text)
   }
   
   /*
     you can't call here async operations with I/O
   */
   definedSyncCall() {
-    return JSON.parse;
+    return JSON.parse
   }
-
 }
 
 // usage
 new ParsedJSON(
   new ReadFile('./../file.txt', 'utf8')
-).call();
+).call()
 ```
 [Learn more](http://guseyn.com/post-reconsidering-async-object-with-cutie#intro).
-
-Also Cutie provides <b>Event</b> abstraction for event listeners in Node. [Read more](http://guseyn.com/post-event-new-abstraction-in-cutie#intro).
 
 # Main idea
 
