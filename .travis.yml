@@ -1,10 +1,13 @@
 language: node_js
 node_js:
-- lts/*
+  - lts/*
 install:
-- npm ci
+  - npm ci
+  - npm install -g codecov
 script:
-- npm run build
+  - npm run build
+  - ./node_modules/.bin/nyc report --reporter lcovonly -- -R spec
+  - codecov
 deploy:
   provider: npm
   email: guseynism@gmail.com
