@@ -6,9 +6,9 @@ install:
   - npm install -g codecov
 script:
   - if [ "${TRAVIS_PULL_REQUEST}" = "true" ]; then
-      npm run build
-      ./node_modules/.bin/nyc report --reporter lcovonly -- -R spec
-      codecov
+      npm run build;
+      ./node_modules/.bin/nyc report --reporter lcovonly -- -R spec;
+      codecov;
     fi
 deploy:
   provider: npm
