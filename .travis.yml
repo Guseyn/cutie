@@ -4,8 +4,7 @@ node_js:
 install:
 - npm ci
 script:
-  if: type = pull_request
-  - npm run build
+- npm run build
 jobs:
   include:
   - stage: npm release
