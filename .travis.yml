@@ -1,10 +1,14 @@
 language: node_js
 node_js:
 - lts/*
+env:
+  - CODECOV_TOKEN=97415504-8a9c-4d62-8d5f-995f6c79345c
 install:
 - npm ci
+- npm install -g codecov
 script:
 - npm run build
+- codecov
 deploy:
   provider: npm
   email: guseynism@gmail.com
