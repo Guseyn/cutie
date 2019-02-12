@@ -7,11 +7,11 @@ install:
 script:
 - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then npm run build; ./node_modules/.bin/nyc
   report --reporter lcovonly -- -R spec; codecov; fi
+before_deploy:
+- npm run build
 deploy:
   - provider: npm
     email: guseynism@gmail.com
-    script:
-    - npm run build
     api_key:
       secure: QAIyol5sH60ZcPCWQAF+g6IrCE9xbxnTmZ+3Q+UecFPsZGS3rffL/toMbVptunYGPsavyiIq4mtZ8+8RLWBMdL89EaRiBpKYCK+Tmo7coaGhwh5sSWXFIF63mfrxcnBC7B6+yKawmXAQm99z6Kd4ShdbANSqt4UzQOwFUHHQFWc2QyvGzdY/ZJiRAZeNguAh3J705IA7fohzeGycseBoFf4fB24md4JS/XaqgsZ+Rf0Eio+xV1bMFT4Aibpx+gD0r8wY1X/aLzfsRXAPnokz7RJowzg4ksSDNoIJNrh0RRRdbu2XP9MiocwxdkrmbQPvZI496mJowMTXSbv2L3OPTK7g4VJbfSNfQyujhyVfa2mEgE0vrY4UMavvsBgKM2Y5FpnXzNCG7bjGfXzxgu9gYriiVNJGjFQav1Ia39ndsbWtiLLMTAyyxgL7/A42YmzwQKwqmc19+WJFEg2aD63vRnHIwCGsLbUevq26gR+f6376LxWJthjkaLfiOrl+KBKSh7yRGhc4tmJ0pZ2zLkQPKZvArfJMClIWJMb2L9v3gAX56Lw7LHkPOyrbPBO3kjSFzAStJtisBrZx1RY+HUia9TtNTGc/1pPXk9Z7STCiEiuC/7/ZiiuznrJTvdPBgZBD+lwoKmzFKRG2nYc0j2Ea0DBaZzu2b9pHhJ94rteATe0=
     on:
@@ -20,7 +20,7 @@ deploy:
       branch: master
   - provider: releases
     api_key:
-      secure: MCuelOq/A11NsYl6jStNlR2sa5wbBMdMieNt1lad4nMFMrNbVsQjX/kOHkgxLlP3hnyw6bLBSB1hj5DOReWIX9yz5rIiHviOu766ySvgtyafidtkyIWIpqfjMz70eRmqeyH5KUh9waGgLi3nPQsTwZMbV0jdJc0WpEgDg+BRcqo80DVcCmfqg1p8BMg7OAQSS5gEHuHj0bJAWdO44GEQZ87VnJGGv/gh+DRbs0gntPQgdRsPfcCvxvVuIzDgPeC2A8dTUKVkJPRRZ0MFMdMMco7krG8qvUCsrRTMAkTsnMn5tBXjoyDonTO4/UVcULioWFAPYo99LrPjMXrFxF5FEY7dqhsQXP+n0CoKWLfV0EImMVb7oqxWad1WlfP8aBwlM8XOckL6FAcL36SJW+Ov278qNuzmVuOvCoJ68WwZ7rY+nHTcnBJRC/AjhkK1uYF7xNwAdX2ydGl+/2exm7S7dcT/3Sr9zsEB3q8tXe3vkVwVZXm1sl0uIAqsN5OON0VXKEhIXRiUM++ZV+I7KL/FMLlyUUX5VS1dZxvvHS4C2pXNjTqS9CL30ENF6Pvs8TYBSXpiJihgwA0WDZAr5RXOGblEtTqg7wczVTrO8MthLsSr+gunuU554brMJEMWNC8j1CYsWzbbRe074x2i6hnXp6P9o/6XfxbU+TF3a0GjYM4=
+      secure: K/jS7puaVrHGlvAHwqnCDoxbvbxX4qST+qPKIS46mSnRunV9vM12PBMK9UoJmnNGm9XBKMBLjEJxRfkwbf9Ip2i09WEWqEyrq5cW/f9GF+7vbHqS0cBbAJ57Es4+tMFWKhmKCjNMHyjikiasYMpGZ6rSHRYDbZwoBCLGPshDlIjovPBUzbDaJ1/ctYLhP1Fy+N/cP4SmgaH4qKuKD9PD4zZFfNmZgOy50x4d8HYKHJU2h5xK6ERLEeTV0M39bVlDoHHOhbKuxY+tveg6ADe9S4bCrdF5H5MYL9BoFvLUg8FVoBTR0bTKgVGh7bGuY0uWrvd/uhg9x1Wvt2ri2TQ3512c1a9nnptIwGqWKUnZLcWkwEdbf1NiwlxOo9FtEd+J/mVVorNfF21idMP8ZHainwFg8tQuU+3gZNZRQzyAGOgt80zXhDLDiIlKmB+LVseBO1ecY0kCy58DLBGD/Yl7zUhUYZfylbXDxusfUdE180WHwUJAWQKYxY9aXmHl22hAHWntaqYllmZ3lE8S8Dx/YsZMVcH3XQHbGW8pSRONyDViWStYm64z2xmKpyYNWPbAwsUQ5R0KFG9Y7hrB5m2gjqp9EWAjqVAUDKFJ5Q1RCmysxo/J7W/a7BLRWvttkG4fbII5oWMcYkSO6c0mTt6ta9fIhPk7XdO7ntY3vTMgakc=
     skip_cleanup: true
     on:
       tags: true
