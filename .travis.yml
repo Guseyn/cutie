@@ -7,9 +7,6 @@ install:
 script:
 - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then npm run build; ./node_modules/.bin/nyc
   report --reporter lcovonly -- -R spec; codecov; fi
-before_deploy:
-  - cd ..
-  - tar -zcf ${TRAVIS_BUILD_DIR}cutie-${TRAVIS_TAG}-${TRAVIS_BUILD_NUMBER}.tar.gz cutie
 deploy:
   - provider: npm
     email: guseynism@gmail.com
@@ -24,8 +21,6 @@ deploy:
   - provider: releases
     api_key:
       secure: MCuelOq/A11NsYl6jStNlR2sa5wbBMdMieNt1lad4nMFMrNbVsQjX/kOHkgxLlP3hnyw6bLBSB1hj5DOReWIX9yz5rIiHviOu766ySvgtyafidtkyIWIpqfjMz70eRmqeyH5KUh9waGgLi3nPQsTwZMbV0jdJc0WpEgDg+BRcqo80DVcCmfqg1p8BMg7OAQSS5gEHuHj0bJAWdO44GEQZ87VnJGGv/gh+DRbs0gntPQgdRsPfcCvxvVuIzDgPeC2A8dTUKVkJPRRZ0MFMdMMco7krG8qvUCsrRTMAkTsnMn5tBXjoyDonTO4/UVcULioWFAPYo99LrPjMXrFxF5FEY7dqhsQXP+n0CoKWLfV0EImMVb7oqxWad1WlfP8aBwlM8XOckL6FAcL36SJW+Ov278qNuzmVuOvCoJ68WwZ7rY+nHTcnBJRC/AjhkK1uYF7xNwAdX2ydGl+/2exm7S7dcT/3Sr9zsEB3q8tXe3vkVwVZXm1sl0uIAqsN5OON0VXKEhIXRiUM++ZV+I7KL/FMLlyUUX5VS1dZxvvHS4C2pXNjTqS9CL30ENF6Pvs8TYBSXpiJihgwA0WDZAr5RXOGblEtTqg7wczVTrO8MthLsSr+gunuU554brMJEMWNC8j1CYsWzbbRe074x2i6hnXp6P9o/6XfxbU+TF3a0GjYM4=
-    file:
-      - ${TRAVIS_BUILD_DIR}cutie-${TRAVIS_TAG}-${TRAVIS_BUILD_NUMBER}.tar.gz
     skip_cleanup: true
     on:
       tags: true
