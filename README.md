@@ -1,6 +1,6 @@
 <img src="https://github.com/Guseyn/logos/raw/master/cutie.svg?sanitize=true">
 
-[![NPM Version][npm-image]][npm-url]
+[![NPM Version](https://img.shields.io/npm/v/@cuties/cutie.svg)](https://npmjs.org/package/@cuties/cutie)
 [![Build Status](https://travis-ci.org/Guseyn/cutie.svg?branch=master)](https://travis-ci.org/Guseyn/cutie)
 [![codecov](https://codecov.io/gh/Guseyn/cutie/branch/master/graph/badge.svg)](https://codecov.io/gh/Guseyn/cutie)
 
@@ -152,6 +152,3 @@ You can find more information about the main idea of cutie [here](http://guseyn.
 ## Libraries that use cutie
 
 [node-test-executor](https://github.com/Guseyn/node-test-executor), [cutie-is](https://github.com/Guseyn/cutie-is), [cutie-assert](https://github.com/Guseyn/cutie-assert), [cutie-fs](https://github.com/Guseyn/cutie-fs), [cutie-http](https://github.com/Guseyn/cutie-http), [cutie-https](https://github.com/Guseyn/cutie-http), [cutie-rest](https://github.com/Guseyn/cutie-rest), [cutie-buffer](https://github.com/Guseyn/cutie-buffer), [cutie-error](https://github.com/Guseyn/cutie-error), [cutie-date](https://github.com/Guseyn/cutie-date), [cutie-json](https://github.com/Guseyn/cutie-json), [cutie-event](https://github.com/Guseyn/cutie-event), [cutie-stream](https://github.com/Guseyn/cutie-stream), [cutie-object](https://github.com/Guseyn/cutie-object), [cutie-process](https://github.com/Guseyn/cutie-process), [cutie-iterator](https://github.com/Guseyn/cutie-iterator), [cutie-path](https://github.com/Guseyn/cutie-path), [cutie-if-else](https://github.com/Guseyn/cutie-if-else), [cutie-cluster](https://github.com/Guseyn/cutie-cluster), [page-static-generator](https://github.com/Guseyn/page-static-generator) and many others.
-
-[npm-image]: https://img.shields.io/npm/v/@cuties/cutie.svg
-[npm-url]: https://npmjs.org/package/@cuties/cutie
