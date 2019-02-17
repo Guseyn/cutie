@@ -4,6 +4,8 @@ node_js:
 install: |-
   npm ci
   npm install -g codecov
+matrix:
+  fast_finish: true
 script: |-
   npm run build
   ./node_modules/.bin/nyc report --reporter lcovonly -- -R spec
