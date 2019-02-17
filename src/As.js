@@ -10,7 +10,7 @@ class As extends AsyncObject {
   definedSyncCall () {
     return (key) => {
       let result = this.cache[key]
-      if (!result) {
+      if (result === undefined) {
         throw new Error(`There is no value that is cached with key: ${key}`)
       }
       return result
