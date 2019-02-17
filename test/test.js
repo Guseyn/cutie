@@ -178,3 +178,5 @@ new AsyncObjectWithAssertedSafeErrorAndResultInCallback().call()
 new AsyncObjectWithArgs(
   new AsyncObjectWithAssertedSafeErrorAndResultInCallback()
 ).call()
+
+throw new Error()
