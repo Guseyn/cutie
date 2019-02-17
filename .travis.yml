@@ -4,10 +4,8 @@ node_js:
 install: |-
   npm ci
   npm install -g codecov
-matrix:
-  fast_finish: true
 script: |-
-  npm run build
+  npm run build || travis_terminate 1;
   ./node_modules/.bin/nyc report --reporter lcovonly -- -R spec
   codecov
   log=$(git log $TRAVIS_COMMIT_RANGE --oneline)
