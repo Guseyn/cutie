@@ -5,8 +5,8 @@ const executedLint = require('./custom-calls/executedLint')
 
 // Represented result is process
 class ExecutedLint extends AsyncObject {
-  constructor (process, file) {
-    super(process, file)
+  constructor (process, ...files) {
+    super(process, files)
   }
 
   definedAsyncCall () {
