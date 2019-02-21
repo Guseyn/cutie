@@ -8,7 +8,7 @@ class AsyncObjectWithAssertedErrorInCallback extends AsyncObject {
     super()
   }
 
-  definedAsyncCall () {
+  asyncCall () {
     return (callback) => {
       return callback(new Error('async error'))
     }

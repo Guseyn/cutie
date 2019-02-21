@@ -1,6 +1,8 @@
 'use strict'
 
 const assert = require('assert')
+const AsyncObject = require('./../src/AsyncObject')
+const Event = require('./../src/Event')
 const as = require('./../src/As')
 const StrictEqualAssertion = require('./StrictEqualAssertion')
 const DeepStrictEqualAssertion = require('./DeepStrictEqualAssertion')
@@ -106,7 +108,7 @@ let testAsyncObjectWithBrokenEvent =
 try {
   testAsyncObjectWithBrokenEvent.call()
 } catch (err) {
-  assert.deepStrictEqual(err, new Error('Method definedBody must be overriden with arguments  of the event/eventListener you call'))
+  assert.deepStrictEqual(err, new Error('Method body must be overriden with arguments  of the event/eventListener you call'))
 }
 
 let brokenTreeNode = new BrokenTreeNode()
@@ -178,3 +180,20 @@ new AsyncObjectWithAssertedSafeErrorAndResultInCallback().call()
 new AsyncObjectWithArgs(
   new AsyncObjectWithAssertedSafeErrorAndResultInCallback()
 ).call()
+
+class A extends AsyncObject {}
+class B extends A {}
+class C extends B {}
+class E extends Event {}
+class D extends E {}
+class F extends D {}
+class N {}
+
+assert(new A().isAsyncObject(new A()))
+assert(new A().isAsyncObject(new B()))
+assert(new A().isAsyncObject(new C()))
+assert(!new A().isAsyncObject(new N()))
+assert(new A().isEvent(new E()))
+assert(new A().isEvent(new D()))
+assert(new A().isEvent(new F()))
+assert(!new A().isEvent(new N()))

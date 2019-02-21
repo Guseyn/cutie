@@ -36,15 +36,13 @@ const AsyncObject = require('@cuties/cutie').AsyncObject
 const fs = require('fs')
 
 class WrittenFile extends AsyncObject {
-
-  constructor(path, content) {
+  constructor (path, content) {
     super(path, content)
   }
   
-  definedAsyncCall() {
+  asyncCall () {
     return fs.writeFile
   }
-  
 }
 ```
 ```js
@@ -52,11 +50,11 @@ const AsyncObject = require('@cuties/cutie').AsyncObject
 const fs = require('fs')
 
 class ReadDataByPath extends AsyncObject {
-  constructor(path, encoding) {
+  constructor (path, encoding) {
     super(path, encoding);
   }
   
-  definedAsyncCall() {
+  asyncCall () {
     return fs.readFile
   }
 }
@@ -69,15 +67,15 @@ const AsyncObject = require('@cuties/cutie').AsyncObject;
 const fs = require('fs');
 
 class ParsedJSON extends AsyncObject {
-  constructor(path, encoding) {
+  constructor (path, encoding) {
     super(path, encoding)
   }
   
-  definedAsyncCall() {
+  asyncCall () {
     return fs.readFile
   }
   
-  onResult(result) {
+  onResult (result) {
     return JSON.parse(result)
   }
 }
@@ -88,14 +86,14 @@ new ParsedJSON('./../file.txt', 'utf8').call()
 `ParsedJSON` also could be designed like this:
 ```js
 const fs = require('fs')
-const ReadFile = require('./ReadFile')
+const ReadDataByPath = require('./ReadDataByPath')
 
-class ParsedJSON extends ReadFile {
-  constructor(path, encoding) {
+class ParsedJSON extends ReadDataByPath {
+  constructor (path, encoding) {
     super(path, encoding)
   }
   
-  onResult(result) {
+  onResult (result) {
     return JSON.parse(result)
   }
 }
@@ -103,28 +101,28 @@ class ParsedJSON extends ReadFile {
 // usage
 new ParsedJSON('./../file.txt', 'utf8').call();
 ```
-Or you can use `ReadFile` with `ParsedJSON` that looks like this:
+Or you can use `ReadDataByPath` with `ParsedJSON` that looks like this:
 ```js
 const AsyncObject = require('@cuties/cutie').AsyncObject
 const fs = require('fs')
-const ReadFile = require('./ReadFile')
+const ReadDataByPath = require('./ReadDataByPath')
 
 class ParsedJSON extends AsyncObject {
-  constructor(text) {
+  constructor (text) {
     super(text)
   }
   
   /*
     you can't call here async operations with I/O
   */
-  definedSyncCall() {
+  syncCall () {
     return JSON.parse
   }
 }
 
 // usage
 new ParsedJSON(
-  new ReadFile('./../file.txt', 'utf8')
+  new ReadDataByPath('./../file.txt', 'utf8')
 ).call()
 ```
 [Learn more](http://guseyn.com/post-reconsidering-async-object-with-cutie#intro).

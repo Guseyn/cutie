@@ -7,7 +7,7 @@ class SyncMaxNum extends AsyncObject {
     super(a, b, c)
   }
 
-  definedSyncCall () {
+  syncCall () {
     return (a, b, c) => {
       return Math.max(a, b, c)
     }

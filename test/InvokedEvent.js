@@ -7,7 +7,7 @@ class InvokedEvent extends AsyncObject {
     super(event)
   }
 
-  definedSyncCall () {
+  syncCall () {
     return (event) => {
       event()
       return event

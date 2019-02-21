@@ -7,7 +7,7 @@ class AsyncObjectWithoutError extends AsyncObject {
     super()
   }
 
-  definedAsyncCall () {
+  asyncCall () {
     return (callback) => {
       callback('value')
     }

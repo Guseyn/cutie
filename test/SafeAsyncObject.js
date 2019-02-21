@@ -7,7 +7,7 @@ class SafeAsyncObject extends AsyncObject {
     super()
   }
 
-  definedSyncCall () {
+  syncCall () {
     return () => {
       throw new Error('safe error')
     }

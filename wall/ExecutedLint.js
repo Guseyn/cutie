@@ -9,7 +9,7 @@ class ExecutedLint extends AsyncObject {
     super(process, files)
   }
 
-  definedAsyncCall () {
+  asyncCall () {
     return executedLint
   }
 }

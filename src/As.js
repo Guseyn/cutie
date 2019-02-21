@@ -7,7 +7,7 @@ class As extends AsyncObject {
     super(key)
   }
 
-  definedSyncCall () {
+  syncCall () {
     return (key) => {
       let result = this.cache[key]
       if (result === undefined) {

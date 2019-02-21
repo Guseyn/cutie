@@ -7,7 +7,7 @@ class EventOfAsyncObjectWithEvent extends AsyncObject {
     super(event)
   }
 
-  definedSyncCall () {
+  syncCall () {
     return (event) => {
       return event
     }
