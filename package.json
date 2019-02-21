@@ -1,6 +1,6 @@
 {
   "name": "@cuties/cutie",
-  "version": "1.6.8",
+  "version": "1.7.0",
   "description": "Cutie is a library with beautiful abstractions and primitives that make your asynchronous code in Node simple and declarative.",
   "main": "index.js",
   "directories": {
