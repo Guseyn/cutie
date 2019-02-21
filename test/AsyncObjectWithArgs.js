@@ -7,7 +7,7 @@ class AsyncObjectWithArgs extends AsyncObject {
     super(...args)
   }
 
-  definedAsyncCall () {
+  asyncCall () {
     return (...args) => {
       let callback = args[args.length - 1]
       return callback(null, ...args.slice(0, args.length - 1))

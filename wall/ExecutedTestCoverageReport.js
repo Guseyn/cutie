@@ -9,7 +9,7 @@ class ExecutedTestCoverageReport extends AsyncObject {
     super(process, format || 'text')
   }
 
-  definedAsyncCall () {
+  asyncCall () {
     return executedTestCoverageReport
   }
 }

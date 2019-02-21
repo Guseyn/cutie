@@ -8,7 +8,7 @@ class AsyncObjectWithAssertedSafeResultInCallback extends AsyncObject {
     super()
   }
 
-  definedAsyncCall () {
+  asyncCall () {
     return (callback) => {
       return callback(null, 'result')
     }

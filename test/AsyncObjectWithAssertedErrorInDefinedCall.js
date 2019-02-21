@@ -8,7 +8,7 @@ class AsyncObjectWithAssertedErrorInDefinedCall extends AsyncObject {
     super()
   }
 
-  definedAsyncCall () {
+  asyncCall () {
     return () => {
       throw new Error('async error')
     }

@@ -9,7 +9,7 @@ class ExecutedTestCoverageCheck extends AsyncObject {
     super(process, options)
   }
 
-  definedAsyncCall () {
+  asyncCall () {
     return executedTestCoverageCheck
   }
 }

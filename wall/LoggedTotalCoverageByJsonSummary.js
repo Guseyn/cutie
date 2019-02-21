@@ -8,7 +8,7 @@ class LoggedTotalCoverageByJsonSummary extends AsyncObject {
     super(json, formula)
   }
 
-  definedSyncCall () {
+  syncCall () {
     return (json, formula) => {
       let totalValue = formula(json.total.lines.pct, json.total.statements.pct, json.total.functions.pct, json.total.branches.pct)
       let report = `Total coverage: ${totalValue}%`

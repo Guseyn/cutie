@@ -32,12 +32,12 @@ class AsyncTree {
   // PRIVATE
 
   createChildNodes (field, parent) {
-    field.iterateArgs((argAsField, index, isAsync, isEvent) => {
-      if (isAsync) {
+    field.iterateArgs((argAsField, index, isAsyncObject, isEvent) => {
+      if (isAsyncObject) {
         this.createAsyncTreeNode(argAsField, parent, index)
       } else if (isEvent) {
         this.createSimpleTreeNode((...eventArgs) => {
-          argAsField.definedBody(...eventArgs)
+          argAsField.body(...eventArgs)
         }, parent, index)
       } else {
         this.createSimpleTreeNode(argAsField, parent, index)

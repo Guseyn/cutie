@@ -1,7 +1,6 @@
 'use strict'
 
 const AsyncTree = require('./AsyncTree')
-const Event = require('./Event')
 
 /* abstract class */
 
@@ -18,11 +17,11 @@ class AsyncObject {
 
   // TO BE OVERRIDDEN
 
-  definedAsyncCall () {
+  asyncCall () {
     throw new Error('asyncCall or syncCall must be defined')
   }
 
-  definedSyncCall () {
+  syncCall () {
     throw new Error('asyncCall or syncCall must be defined')
   }
 
@@ -76,9 +75,7 @@ class AsyncObject {
 
   iterateArgs (func) {
     this.args.forEach((arg, index) => {
-      let isAsync = arg instanceof AsyncObject
-      let isEvent = arg instanceof Event
-      func(arg, index, isAsync, isEvent)
+      func(arg, index, this.isAsyncObject(arg), this.isEvent(arg))
     })
   }
 
@@ -98,7 +95,7 @@ class AsyncObject {
   }
 
   propagateCache (arg) {
-    if (arg instanceof AsyncObject) {
+    if (this.isAsyncObject(arg)) {
       arg.withCache(this.cache)
       arg.iterateArgs(arg => this.propagateCache(arg))
     }
@@ -114,6 +111,30 @@ class AsyncObject {
       this.cache[this.asKey] = value
     }
     return this
+  }
+
+  isAsyncObject (arg) {
+    return this.classChain(arg).indexOf('AsyncObject') !== -1
+  }
+
+  isEvent (arg) {
+    return this.classChain(arg).indexOf('Event') !== -1
+  }
+
+  classChain (obj, chain) {
+    if (!chain) {
+      chain = []
+    }
+    if (typeof obj === 'function') {
+      if (!obj.name || obj === Object) {
+        return chain
+      }
+      return this.classChain(Object.getPrototypeOf(obj), chain.concat(obj.name))
+    }
+    if (typeof obj === 'object' && obj !== null) {
+      return this.classChain(obj.constructor, chain)
+    }
+    return chain
   }
 }
 

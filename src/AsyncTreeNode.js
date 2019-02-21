@@ -19,7 +19,7 @@ class AsyncTreeNode extends TreeNode {
   call () {
     let args = this.argResults
     try {
-      let asyncCall = this.field.definedAsyncCall()
+      let asyncCall = this.field.asyncCall()
       if (this.field.callbackWithError()) {
         this.invokeAsyncCallWithError(asyncCall, ...args)
       } else {
@@ -33,7 +33,7 @@ class AsyncTreeNode extends TreeNode {
           this.field.onError(error)
         }
       } else {
-        let syncCall = this.field.definedSyncCall()
+        let syncCall = this.field.syncCall()
         this.invokeSyncCall(syncCall, ...args)
       }
     }
