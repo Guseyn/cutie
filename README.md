@@ -68,7 +68,7 @@ class ReadDataByPath extends AsyncObject {
   }
 }
 ```
-AsyncObject also provides methods `OnResult` and `OnError`, so that you can process the result(it's provided by callback by default) from async call and handle an error in the specific way (error is being thrown by default).
+AsyncObject also provides methods `OnResult` and `OnError`, so that you can process the result (it's provided by callback by default) from async call and handle an error in the specific way (error is being thrown by default).
 
 Let's say we want to read a json file and parse all information from there. Cutie provides two ways. First of them is just to create `ParsedJSON` async object like this:
 ```js
