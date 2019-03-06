@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/Guseyn/cutie.svg?branch=master)](https://travis-ci.org/Guseyn/cutie)
 [![codecov](https://codecov.io/gh/Guseyn/cutie/branch/master/graph/badge.svg)](https://codecov.io/gh/Guseyn/cutie)
 
-<b>Cutie</b> is a lightweight library that implements [Async Tree Pattern](https://github.com/Guseyn/async-tree-patern/blob/master/Async_Tree_Patern.pdf).
+**Cutie** is a lightweight library that implements [Async Tree Pattern](https://guseyn.com/pdf/Async_Tree_Pattern.pdf).
 
 # Motivation
 Let's say we want to read content from a file and write it to another one. And all these operations are asynchronous, of course. So, instead of writing something like this:
@@ -35,13 +35,21 @@ You can use Cutie as a dependency via npm:
 const AsyncObject = require('@cuties/cutie').AsyncObject
 const fs = require('fs')
 
+// Represents file as path
 class WrittenFile extends AsyncObject {
   constructor (path, content) {
     super(path, content)
   }
   
   asyncCall () {
-    return fs.writeFile
+    return (path, content, callback) => {
+      this.path = path
+      fs.writeFile(path, content, callback)
+    }
+  }
+
+  onResult() {
+    return this.path
   }
 }
 ```
@@ -49,6 +57,7 @@ class WrittenFile extends AsyncObject {
 const AsyncObject = require('@cuties/cutie').AsyncObject
 const fs = require('fs')
 
+// Represents buffer or string
 class ReadDataByPath extends AsyncObject {
   constructor (path, encoding) {
     super(path, encoding);
@@ -59,9 +68,9 @@ class ReadDataByPath extends AsyncObject {
   }
 }
 ```
-AsyncObject also provides methods `OnResult` and `OnError`, so that you can process the `result` from async call and handle an `error` in the specific way (error is being thrown by default).
+AsyncObject also provides methods `OnResult` and `OnError`, so that you can process the result(it's provided by callback by default) from async call and handle an error in the specific way (error is being thrown by default).
 
-Let's say we want to read a json file and parse all information from there. Cutie provides two ways. First of them is just to create <b>ParsedJSON</b> async object like this:
+Let's say we want to read a json file and parse all information from there. Cutie provides two ways. First of them is just to create `ParsedJSON` async object like this:
 ```js
 const AsyncObject = require('@cuties/cutie').AsyncObject;
 const fs = require('fs');
@@ -125,19 +134,10 @@ new ParsedJSON(
   new ReadDataByPath('./../file.txt', 'utf8')
 ).call()
 ```
-[Learn more](http://guseyn.com/post-reconsidering-async-object-with-cutie#intro).
+## Read more
 
-# Main idea
-
-You can find more information about the main idea of cutie [here](http://guseyn.com/post-reconsidering-async-object-with-cutie#intro). Also you can read about Async Tree Pattern [here](https://github.com/Guseyn/async-tree-patern/blob/master/Async_Tree_Patern.pdf)
-
-# Declarative events
-
-[Read](http://guseyn.com/post-event-new-abstraction-in-cutie#intro).
-
-# ***As*** conception and sequence of async trees.
-
-[Read](http://guseyn.com/post-after-conception#intro).
+1. [Async Tree Pattern](https://guseyn.com/pdf/Async_Tree_Pattern.pdf)
+2. [Async Objects instead of Async Calls](https://guseyn.com/posts/async-objects-instead-of-async-calls)
 
 ## Run test
 
