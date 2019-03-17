@@ -11,7 +11,7 @@ class As extends AsyncObject {
     return (key) => {
       let result = this.cache[key]
       if (result === undefined) {
-        throw new Error(`There is no value that is cached with key: ${key}`)
+        throw new Error(`There is no value that is cached with key ${key}`)
       }
       return result
     }

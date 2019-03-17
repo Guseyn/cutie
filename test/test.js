@@ -54,24 +54,35 @@ let testAsyncObject =
           ),
           new AsyncMaxNum(3, 4, 8)
         ),
-        new AsyncMaxNum(1, 4, 8).as('max7')
+        new AsyncMaxNum(1, 4, 8).as('max8')
       ).after(
-        new StrictEqualAssertion(8, as('max7'))
+        new StrictEqualAssertion(8, as('max8'))
       )
     )
 
 testAsyncObject.call()
+
+// can't save value into cache with the same key
+try {
+  new SyncMaxNum(1, 3,
+    new SyncMaxNum(1, 2, 4).as('max1')
+  ).after(
+    new SyncMaxNum(1, 2, 4).as('max1')
+  ).call()
+} catch (err) {
+  assert.deepStrictEqual(err, new Error('There is already value that is cached with key max1'))
+}
 
 let testAsyncObjectWithFailedAs =
   new StrictEqualAssertion(
     new AsyncMaxNum(1, 2, as('max'))
   )
 
-// we can do it, because here AsyncMaxNum does not work with I/O
+// we can do it, because here AsyncMaxNum does not work with I/O asynchronously
 try {
   testAsyncObjectWithFailedAs.call()
 } catch (err) {
-  assert.deepStrictEqual(err, new Error('There is no value that is cached with key: max'))
+  assert.deepStrictEqual(err, new Error('There is no value that is cached with key max'))
 }
 
 let testAsyncObjectWithoutDefinedCall =
