@@ -108,6 +108,9 @@ class AsyncObject {
 
   saveValueIntoCacheIfNeeded (value) {
     if (this.asKey) {
+      if (this.cache[this.asKey]) {
+        throw new Error(`There is already value that is cached with key ${this.asKey}`)
+      }
       this.cache[this.asKey] = value
     }
     return this
